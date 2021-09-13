@@ -1,0 +1,34 @@
+{
+	"Metrics":{
+	},
+	"Topics": {
+		"topic0":{
+		  "horse": 3,
+		  "pig": 5,
+		  "dog": 9,
+		  "cat": 10,
+		  "duck": 4,
+		  "chicken": 7,
+		  "lama": 1		
+		},
+	  	"topic1":{
+		  "mercedes": 8,
+		  "ford": 4,
+		  "Audi": 8,
+		  "BMW": 5,
+		  "Renault": 6,
+		  "Citroen": 3,
+		  "Fiat": 1
+		},
+		  "topic2":{
+			"boeing": 4,
+			"airbus": 5,
+			"cessna": 8,
+			"lockheed-martin": 3,
+			"dassault": 7,
+			"saab": 6,
+			"mig": 9			  
+		}	  	
+	},
+	"ID": "1"
+}

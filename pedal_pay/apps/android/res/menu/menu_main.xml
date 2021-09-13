@@ -1,0 +1,23 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="uk.co.coryalexander.pedalpay.MainActivity">
+    <item
+        android:id="@+id/action_book"
+        android:orderInCategory="100"
+        android:title="Book"
+        android:icon="@drawable/location"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_checkOut"
+        android:orderInCategory="100"
+        android:title="Collect"
+        android:icon="@drawable/bicycle"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_profile"
+        android:orderInCategory="100"
+        android:title="Manage"
+        android:icon="@drawable/settings"
+        app:showAsAction="never" />
+</menu>

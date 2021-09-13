@@ -1,0 +1,16 @@
+{
+	"Metrics": {
+		"log_likelihood": -8.099141810362212
+	},
+	"Topics": {
+		"topic0": {
+			"cancel": 1,
+			"reuse": 1,
+			"half": 5
+		}
+	},
+	"Parameters": {
+		"iterations": 20
+	},
+	"ID": "ffffffffeecb1efb"
+}

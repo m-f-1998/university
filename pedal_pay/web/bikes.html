@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<LINK REL="StyleSheet" HREF="css/style.css" TYPE="text/css" />
+	<LINK REL="StyleSheet" HREF="css/iconic/css/iconmonstr-iconic-font.min.css" TYPE="text/css" />
+	<LINK REL="icon" type="image/png" href="css/Images/favicon.png" />
+
+	<title>PedalPay</title>
+</head>
+
+<body onload="checkDetails();">
+	<div class="topnav" id="myTopnav">
+		<a href="index.html" class="logo">PedalPay</a>
+		<a href="bikes.html">Bikes</a>
+		<a href="users.html">Users</a>
+		<a href="heatmap.html">Heat map</a>
+		<a href="report.html">Report</a>
+		<a href="#" id="login3" class="btn btn-primary modal-open-links" data-toggle="modal" data-modal-show="one"
+			data-target="#myModal">Login</a>
+		<a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+
+	</div>
+
+	<!-- Login Modal -->
+	<div id="loginModal" class="modal">
+		<!-- Modal content -->
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="close" data-dismiss="modal">&times;</span>
+				<h1>PedalPay</h1>
+			</div>
+			<div class="modal-body">
+				<div id="one" class="hide_first">
+					<div id=form>
+						<form id="loginForm" method="post" action="http://www.matthewfrankland.co.uk/pedalPay/login/login.php">
+							<div class="loginError" id="loginError"></div>
+							<div class="loginSuccess" id="loginSuccess"></div>
+							<div class="inputs">
+								<h2>Admin Login</h2>
+								<label> Email </label> <input type="text" name="email" placeholder="Your email.." />
+							</div>
+
+							<div class="inputs">
+								<label> Password </label> <input type="password" name="password" id="password"
+									placeholder="Your password.." />
+							</div>
+
+							<div class="inputs">
+								<div id="buttonholder">
+									<button type="submit" name="login" class="btn">Login</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+	<script>
+		function myFunction() {
+			var x = document.getElementById("myTopnav");
+			if (x.className === "topnav") {
+				x.className += " responsive";
+			} else {
+				x.className = "topnav";
+			}
+		}
+	</script>
+	<script>
+		function checkDetails() {
+			if (sessionStorage.getItem('adminEmailStorage') != null) {
+				document.getElementById("loginModal").style.display = "none";
+				var elem = document.getElementById("login3");
+				elem.parentNode.removeChild(elem);
+			}
+		}
+	</script>
+	<!--Login script for nav-->
+	<script>
+		// Get the modal
+		var modal = document.getElementById("loginModal");
+		// Get the button that opens the modal
+		var btn = document.getElementById("login3");
+		// Get the <span> element that closes the modal
+		var span = document.getElementsByClassName("close")[0];
+		// When the user clicks the button, open the modal
+		btn.onclick = function () {
+			modal.style.display = "block";
+		};
+		// When the user clicks on <span> (x), close the modal
+		span.onclick = function () {
+			modal.style.display = "none";
+		};
+		// When the user clicks anywhere outside of the modal, close it
+		window.onclick = function (event) {
+			if (event.target == modal) {
+				modal.style.display = "none";
+			}
+		};
+	</script>
+
+
+	<script>
+		$(".modal-open-links").on("click", function (e) {
+			//Set display:none for all first
+			$(".hide_first").css("display", "none");
+			content_to_show = $(this).attr("data-modal-show");
+			//Show the one we clicked
+			$("#" + content_to_show).css("display", "block");
+		});
+	</script>
+
+	<div id="adminContent">
+
+		<div id="mapContainer">
+			<p>Fill in the form below to find or update the location of a bike:</p>
+			<form id="updateBikes" method="post"
+				action="http://www.matthewfrankland.co.uk/pedalPay/adminFunctions/bikeUpdates.php">
+				<label> Bike ID </label>
+				<input type="text" name="bid" id="bid" />
+				<label> Do you want to update the location of a bike?</label>
+				<input type="checkbox" id="checkBox" class="checkboxLatLng" /><br><br>
+				<label> Enter the latitude </label>
+				<input type="text" id="lat" name="lat" disabled />
+				<label> Enter the longitude </label>
+				<input type="text" id="long" name="long" disabled />
+
+				<div id="buttonholder">
+					<button type="submit" name="bikeUpdateBtn" id="bikeUpdateBtn" class="btn">Find bike</button>
+				</div>
+				<div id="bikeLocationDiv"></div>
+				<div id="mapBox"></div>
+			</form>
+		</div>
+
+	</div>
+
+	<script>
+		var map;
+		function initMap() {
+			map = new google.maps.Map(document.getElementById('mapBox'), {
+				center: { lat: 55.952, lng: -3.19 },
+				zoom: 12
+			});
+		}
+		function loadmarkers(bikeLat, bikeLng, bid) {
+			var marker = new google.maps.Marker({
+				position: { lat: parseFloat(bikeLat), lng: parseFloat(bikeLng) },
+				map: map,
+				title: bid,
+				con: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=' + bid + '|FF776B|000000',
+				shadow: 'https://chart.googleapis.com/chart?chst=d_map_pin_shadow'
+			})
+		}
+	</script>
+	<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAH3FQG8YcgP3NbuRN3EATXq1NXzQ7m7j8&callback=initMap">
+		</script>
+
+	<script>
+		document.getElementById('checkBox').onchange = function () {
+			document.getElementById('lat').disabled = !this.checked;
+			document.getElementById('long').disabled = !this.checked;
+
+			if (document.getElementsByClassName("checkboxLatLng")[0].checked) {
+				document.getElementById("bikeUpdateBtn").innerText = "Update bike location";
+			} else {
+				document.getElementById("bikeUpdateBtn").innerText = "Find bike";
+			}
+		};
+	</script>
+
+	<script>
+		$(function () {
+			$('#updateBikes').on('submit', function (e) {
+				if (sessionStorage.getItem('adminEmailStorage') == null) {
+					alert("LOG IN TO ACCESS DATA");
+				} else {
+					$("#bikeLocationDiv").empty();
+					test = document.getElementsByClassName("checkboxLatLng");
+					if (test[0].checked === true) {
+						var longChecker = document.getElementById('long').value;
+						var latChecker = document.getElementById('lat').value;
+						if (longChecker == "" | latChecker == "") {
+							document.getElementById('bikeLocationDiv').innerHTML = "Please enter a valid Lat/Long value!";
+						} else if (isNaN(longChecker) | isNaN(latChecker)) {
+							document.getElementById('bikeLocationDiv').innerHTML = "There is a letter in your Lat/Long inputs!";
+						} else {
+							$.ajax({
+								type: 'post',
+								url: 'http://www.matthewfrankland.co.uk/pedalPay/adminFunctions/updateLocation.php',
+								data: $('#updateBikes').serialize() + '&email=' + sessionStorage.getItem('adminEmailStorage') + '&password=' + sessionStorage.getItem('adminPasswordStorage'),
+								success: function (response) {
+									var jsonData = JSON.parse(response);
+									if (jsonData.message === "Location Update Successful") {
+										loadmarkers(document.getElementById('lat').value, document.getElementById('long').value, document.getElementById('bid').value);
+										document.getElementById('bikeLocationDiv').innerHTML = "The bikes location has been updated! <br> WARNING: IF YOU CANNOT SEE THE BIKE ON THE MAP, YOU HAVE PUT IT OUTSIDE OF EDINBURGH OR THE BIKE DOES NOT EXIST!";
+									}
+								}
+							});
+						}
+					} else {
+						$.ajax({
+							type: 'post',
+							url: 'http://www.matthewfrankland.co.uk/pedalPay/adminFunctions/bikeUpdates.php',
+							data: $('#updateBikes').serialize() + '&email=' + sessionStorage.getItem('adminEmailStorage') + '&password=' + sessionStorage.getItem('adminPasswordStorage'),
+							success: function (response) {
+								var jsonData = JSON.parse(response);
+								$("#bikeLocationDiv").empty();
+								var counter = jsonData.message;
+								if (counter == "") {
+									document.getElementById('bikeLocationDiv').innerHTML = "The bike you are trying to find doesn't exist!";
+								} else if (counter[1].lat === undefined) {
+									document.getElementById('bikeLocationDiv').innerHTML = "Please enter a valid email/password";
+								} else {
+									loadmarkers(counter[1].lat, counter[1].lng, counter[1].bid);
+									document.getElementById('bikeLocationDiv').innerHTML = "The bike is being shown on the map";
+								}
+							}
+						});
+					}
+				}
+				e.preventDefault();
+			});
+		});
+	</script>
+
+	<script>
+		$(function () {
+			$('#loginForm').on('submit', function (e) {
+				$.ajax({
+					type: 'post',
+					url: 'http://www.matthewfrankland.co.uk/pedalPay/login/login.php',
+					data: $('#loginForm').serialize(),
+					success: function (response) {
+						$('#loginError').html("");
+						$('#loginSuccess').html("");
+						var message = jQuery.parseJSON(response);
+						if (message.error == true) {
+							$('#loginError').html("<p>" + message.message + "</p>");
+						} else if (message.admin == false) {
+							$('#loginError').html("You are not an admin!");
+						} else {
+							sessionStorage.setItem('adminEmailStorage', message.message);
+							sessionStorage.setItem('adminPasswordStorage', document.getElementById('password').value);
+							document.getElementById("loginModal").style.display = "none";
+							var elem = document.getElementById("login3");
+							elem.parentNode.removeChild(elem);
+						}
+					}, error: function () {
+						//if fails   
+						$('#loginError').html("");
+						$('#loginError').html("Something went wrong!");
+					}
+				});
+				e.preventDefault();
+			});
+		});
+	</script>
+</body>
+
+</html>

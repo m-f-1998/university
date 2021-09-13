@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <LINK REL="StyleSheet" HREF="css/style.css" TYPE="text/css" />
+    <LINK REL="StyleSheet" HREF="css/iconic/css/iconmonstr-iconic-font.min.css" TYPE="text/css" />
+    <LINK REL="icon" type="image/png" href="css/Images/favicon.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>PedalPay | Terms</title>
+</head>
+
+<body onload="checkDetails();">
+    <div class="topnav" id="myTopnav">
+        <a href="index.html" class="logo">PedalPay</a>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="products.html">Products</a>
+        <a href="contact.html">Contact</a>
+        <a href="#" id="login3" class="btn btn-primary modal-open-links" data-toggle="modal" data-modal-show="one"
+            data-target="#myModal">Login</a>
+        <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+
+    </div>
+
+    <div id="termsandprivacy">
+        <h1>Terms and Conditions ("Terms")</h1>
+        <p>
+            <light>Last updated: March 12, 2019</light><br /><br />
+            Please read these Terms and Conditions ("Terms", "Terms and Conditions") carefully before using the
+            www.Pedalpay.net website (the "Service") operated by PedalPay ("us", "we", or "our"). <br /><br />
+            Your access to and use of the Service is conditioned on your acceptance of and compliance with these Terms.
+            These Terms apply to all visitors, users and others who access or use the Service.<br /><br />
+            By accessing or using the Service you agree to be bound by these Terms. If you disagree with any part of the
+            terms then you may not access the Service. The Terms and Conditions agreement for PedalPay has been created
+            with the help of TermsFeed.<br /><br />
+        </p>
+        <h2>Accounts</h2>
+        <p>
+            When you create an account with us, you must provide us information that is accurate, complete, and current
+            at all times. Failure to do so constitutes a breach of the Terms, which may result in immediate termination
+            of your account on our Service.<br /><br />
+            You are responsible for safeguarding the password that you use to access the Service and for any activities
+            or actions under your password, whether your password is with our Service or a third-party
+            service.<br /><br />
+            You agree not to disclose your password to any third party. You must notify us immediately upon becoming
+            aware of any breach of security or unauthorized use of your account.<br /><br />
+        </p>
+        <h2>Links To Other Web Sites</h2>
+        <p>
+            Our Service may contain links to third-party web sites or services that are not owned or controlled by
+            PedalPay.<br /><br />
+            PedalPay has no control over, and assumes no responsibility for, the content, privacy policies, or practices
+            of any third party web sites or services. You further acknowledge and agree that PedalPay shall not be
+            responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or
+            in connection with use of or reliance on any such content, goods or services available on or through any
+            such web sites or services.<br /><br />
+            We strongly advise you to read the terms and conditions and privacy policies of any third-party web sites or
+            services that you visit.<br /><br />
+        </p>
+        <h2>Termination</h2>
+        <p>
+            We may terminate or suspend access to our Service immediately, without prior notice or liability, for any
+            reason whatsoever, including without limitation if you breach the Terms.<br /><br />
+            All provisions of the Terms which by their nature should survive termination shall survive termination,
+            including, without limitation, ownership provisions, warranty disclaimers, indemnity and limitations of
+            liability.<br /><br />
+            We may terminate or suspend your account immediately, without prior notice or liability, for any reason
+            whatsoever, including without limitation if you breach the Terms.<br /><br />
+            Upon termination, your right to use the Service will immediately cease. If you wish to terminate your
+            account, you may simply discontinue using the Service.<br /><br />
+            All provisions of the Terms which by their nature should survive termination shall survive termination,
+            including, without limitation, ownership provisions, warranty disclaimers, indemnity and limitations of
+            liability.<br /><br />
+        </p>
+        <h2>Governing Law</h2>
+        <p>
+            These Terms shall be governed and construed in accordance with the laws of United Kingdom, without regard to
+            its conflict of law provisions.<br /><br />
+            Our failure to enforce any right or provision of these Terms will not be considered a waiver of those
+            rights. If any provision of these Terms is held to be invalid or unenforceable by a court, the remaining
+            provisions of these Terms will remain in effect. These Terms constitute the entire agreement between us
+            regarding our Service, and supersede and replace any prior agreements we might have between us regarding the
+            Service.<br /><br />
+        </p>
+        <h2>Changes</h2>
+        <p>
+            We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is
+            material we will try to provide at least 30 days notice prior to any new terms taking effect. What
+            constitutes a material change will be determined at our sole discretion.<br /><br />
+            By continuing to access or use our Service after those revisions become effective, you agree to be bound by
+            the revised terms. If you do not agree to the new terms, please stop using the Service.<br /><br />
+        </p>
+        <h2>Contact Us</h2>
+        <p>
+            If you have any questions about these Terms, please contact us.
+        </p>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" data-dismiss="modal">&times;</span>
+                <h1>PedalPay</h1>
+            </div>
+            <div class="modal-body">
+                <div id="one" class="hide_first">
+                    <div id="form">
+                        <form id="loginForm" method="post" onsubmit="event.preventDefault(); loginValidation()"
+                            action="http://www.matthewfrankland.co.uk/pedalPay/login/login.php">
+                            <div class="loginError" id="loginError"></div>
+                            <div class="loginSuccess" id="loginSuccess"></div>
+                            <div class="inputs">
+                                <h2>Login</h2>
+                                <label id="loginEmailPrompt"> Email </label>
+                                <input type="text" name="email" id="email" placeholder="Your email.." />
+                            </div>
+
+                            <div class="inputs">
+                                <label id="loginPasswordPrompt"> Password </label>
+                                <input type="password" name="password" id="password" placeholder="Your password.." />
+                            </div>
+
+                            <div class="inputs">
+                                <div id="buttonholder">
+                                    <button type="submit" name="login" class="btn">
+                                        Login
+                                    </button>
+                                </div>
+                            </div>
+                            <p>
+                                <a href="#" id="login2" class="btn btn-danger modal-open-links" data-toggle="modal"
+                                    data-modal-show="two" data-target="#myModal">Not signed up?</a>
+                            </p>
+                            <p>
+                                <a href="#" id="login2" class="btn btn-danger modal-open-links" data-toggle="modal"
+                                    data-modal-show="three" data-target="#myModal">Forgot your password?</a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+                <div id="two" style="display:none" class="hide_first">
+                    <form id="registerForm" method="post" onsubmit="event.preventDefault();"
+                        action="http://www.matthewfrankland.co.uk/pedalPay/login/register.php">
+                        <div class="registerErrors" id="registerErrors"></div>
+                        <div class="registerSuccess" id="registerSuccess"></div>
+
+                        <h2>Sign Up</h2>
+
+                        <div class="tab">
+                            <h3>Login Information</h3>
+                            <label id="registerEmailPrompt"> Email </label><br />
+                            <input type="text" name="email" id="email2" placeholder="Your email.." /><br />
+
+                            <label id="registerPasswordPrompt"> Password </label>
+                            <input type="password" name="password" id="password" placeholder="Your password.." /><br />
+                        </div>
+
+                        <div class="tab">
+                            <h3>Personal Information</h3>
+
+                            <label id="registerNamePrompt"> Name </label>
+                            <input type="text" name="name" placeholder="Your name.." /><br />
+
+                            <label id="registerDobPrompt"> DOB </label>
+                            <input type="text" name="dob" placeholder="Your date of birth.." /><br />
+
+                            <label id="registerNumberPrompt"> Phone number</label>
+                            <input type="text" name="phone" placeholder="Your phone number.." />
+                            <br />
+                            <label id="registerGenderPrompt">Gender</label>
+                            <select name="gender" id="gender">
+                                <option value="m">Male</option>
+                                <option value="f">Female</option>
+                            </select>
+                        </div>
+
+                        <div class="tab">
+                            <h3>Address</h3>
+                            <label id="registerAddressPrompt"> Address line 1 </label>
+                            <input type="text" name="addressone" placeholder="Your address.." /><br />
+
+                            <label id="registerCityPrompt"> City </label><br />
+                            <input type="text" name="city" placeholder="Your city.." /><br />
+
+                            <label id="registerPostCodePrompt"> Post code </label>
+                            <input type="text" name="zip" placeholder="Your post code.." /><br />
+                        </div>
+
+                        <div id="buttonholder">
+                            <button type="button" id="prevBtn" onclick="nextPrev(-1)">
+                                Previous
+                            </button>
+                            <button type="button" id="nextBtn" onclick="nextPrev(1)">
+                                Next
+                            </button>
+                        </div>
+
+                        <!-- Circles which indicates the steps of the form: -->
+                        <div style="text-align:center;margin-top:40px;">
+                            <span class="step"></span>
+                            <span class="step"></span>
+                            <span class="step"></span>
+                            <span class="step"></span>
+                        </div>
+
+                        <div class="registerErrors" id="registerErrors"></div>
+                        <div class="registerSuccess" id="registerSuccess"></div>
+
+                        <p>
+                            <a href="#" id="login2" class="btn btn-danger modal-open-links" data-toggle="modal"
+                                data-modal-show="one" data-target="#myModal">Already signed up?</a>
+                        </p>
+                        <p>
+                            <a href="#" id="login2" class="btn btn-danger modal-open-links" data-toggle="modal"
+                                data-modal-show="three" data-target="#myModal">Forgot your password?</a>
+                        </p>
+                    </form>
+                </div>
+                <div id="three" style="display:none" class="hide_first">
+                    <form id="resetPassForm" method="post" onsubmit="event.preventDefault(); resetValidation()"
+                        action="http://www.matthewfrankland.co.uk/pedalPay/resetPass/emailReset.php">
+                        <div class="resetErrors" id="resetErrors"></div>
+                        <div class="inputs">
+                            <h2>Reset Password</h2>
+                            <label id="resetEmailPrompt"> Email </label>
+                            <input type="text" name="email" placeholder="Your email.." />
+                        </div>
+
+                        <div class="inputs">
+                            <div id="buttonholder">
+                                <button type="submit" name="login" class="btn">
+                                    Reset Password
+                                </button>
+                            </div>
+                        </div>
+                        <p>
+                            <a href="#" id="login2" class="btn btn-danger modal-open-links" data-toggle="modal"
+                                data-modal-show="one" data-target="#myModal">Remember your password?</a>
+                        </p>
+                        <p>
+                            <a href="#" id="login2" class="btn btn-danger modal-open-links" data-toggle="modal"
+                                data-modal-show="two" data-target="#myModal">Not signed up?</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var currentTab = 0; // Current tab is set to be the first tab (0)
+        showTab(currentTab); // Display the current tab
+
+        function showTab(n) {
+            // This function will display the specified tab of the form...
+            var x = document.getElementsByClassName("tab");
+            x[n].style.display = "block";
+            //... and fix the Previous/Next buttons:
+            if (n == 0) {
+                document.getElementById("prevBtn").style.display = "none";
+            } else {
+                document.getElementById("prevBtn").style.display = "inline";
+            }
+            if (n == x.length - 1) {
+                document.getElementById("nextBtn").innerHTML = "Submit";
+            } else {
+                document.getElementById("nextBtn").innerHTML = "Next";
+            }
+            //... and run a function that will display the correct step indicator:
+            fixStepIndicator(n);
+        }
+
+        function nextPrev(n) {
+            // This function will figure out which tab to display
+            var x = document.getElementsByClassName("tab");
+            // Exit the function if any field in the current tab is invalid:
+            if (n == 1 && !validateForm(currentTab)) return false;
+            // Hide the current tab:
+            x[currentTab].style.display = "none";
+            // Increase or decrease the current tab by 1:
+            currentTab = currentTab + n;
+            // if you have reached the end of the form...
+            if (currentTab >= x.length) {
+                // ... the form gets submitted:
+                document.getElementById("registerForm").submit();
+                return false;
+            }
+            // Otherwise, display the correct tab:
+            showTab(currentTab);
+        }
+
+        function validateForm(n) {
+            // This function deals with validation of the form fields
+            var email = document.forms["registerForm"]["email"].value;
+            var password = document.forms["registerForm"]["password"].value;
+            var name = document.forms["registerForm"]["name"].value;
+            var dob = document.forms["registerForm"]["dob"].value;
+            var addressone = document.forms["registerForm"]["addressone"].value;
+            var city = document.forms["registerForm"]["city"].value;
+            var zip = document.forms["registerForm"]["zip"].value;
+            var phone = document.forms["registerForm"]["phone"].value;
+            var valid = true;
+            if (n == 0) {
+                console.log("First tab submitting pending validation");
+                if (
+                    !email.match(
+                        /(?:[a-z0-9!#$%&'+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
+                    )
+                ) {
+                    producePrompt("Invalid email", "registerEmailPrompt", "#e43353");
+                    valid = false;
+                    console.log("First tab failed email val");
+                } else {
+                    producePrompt("Email", "registerEmailPrompt", "#853745");
+                }
+                if (!password.match(/^.{6,}$/)) {
+                    producePrompt(
+                        "Invalid password",
+                        "registerPasswordPrompt",
+                        "#e43353"
+                    );
+                    valid = false;
+                    console.log("First tab failed pw val");
+                } else {
+                    producePrompt("Password", "registerPasswordPrompt", "#853745");
+                }
+            }
+            if (n == 1) {
+                if (!name.match(/^.{2,}$/)) {
+                    producePrompt("Invalid name", "registerNamePrompt", "#e43353");
+                    valid = false;
+                } else {
+                    producePrompt("Name", "registerNamePrompt", "#853745");
+                }
+                if (
+                    !dob.match(
+                        /(0[1-9]|[12][0-9]|3[01])[/](0[1-9]|1[012])[/]([1-9][0-9][0-9][0-9]|0[1-9][0-9][0-9]|00[1-9][0-9]|000[1-9])/
+                    )
+                ) {
+                    producePrompt("Invalid DOB", "registerDobPrompt", "#e43353");
+                    valid = false;
+                } else {
+                    producePrompt("DOB", "registerDobPrompt", "#853745");
+                }
+                if (
+                    !phone.match(
+                        /^(((\+44\s?\d{4}|\(?0\d{4}\)?)\s?\d{3}\s?\d{3})|((\+44\s?\d{3}|\(?0\d{3}\)?)\s?\d{3}\s?\d{4})|((\+44\s?\d{2}|\(?0\d{2}\)?)\s?\d{4}\s?\d{4}))(\s?\#(\d{4}|\d{3}))?$/
+                    )
+                ) {
+                    producePrompt(
+                        "Invalid phone number",
+                        "registerNumberPrompt",
+                        "#e43353"
+                    );
+                    valid = false;
+                } else {
+                    producePrompt("Phone number", "registerPhonePrompt", "#853745");
+                }
+            }
+            if (n == 2) {
+                if (!addressone.match(/^.{2,}$/)) {
+                    producePrompt(
+                        "Invalid address",
+                        "registerAddressPrompt",
+                        "#e43353"
+                    );
+                    valid = false;
+                } else {
+                    producePrompt("Address", "registerAddressPrompt", "#853745");
+                }
+                if (!city.match(/^.{2,}$/)) {
+                    producePrompt("Invalid city", "registerCityPrompt", "#e43353");
+                    valid = false;
+                } else {
+                    producePrompt("City", "registerCityPrompt", "#853745");
+                }
+                if (
+                    !zip.match(
+                        /^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$/
+                    )
+                ) {
+                    producePrompt(
+                        "Invalid post code",
+                        "registerPostCodePrompt",
+                        "#e43353"
+                    );
+                    valid = false;
+                } else {
+                    producePrompt("Post code", "registerPostCodePrompt", "#853745");
+                }
+            }
+            // If the valid status is true, mark the step as finished and valid:
+            if (valid) {
+                document.getElementsByClassName("step")[currentTab].className +=
+                    " finish";
+            }
+            return valid; // return the valid status
+        }
+
+        function fixStepIndicator(n) {
+            // This function removes the "active" class of all steps...
+            var i,
+                x = document.getElementsByClassName("step");
+            for (i = 0; i < x.length; i++) {
+                x[i].className = x[i].className.replace(" active", "");
+            }
+            //... and adds the "active" class on the current step:
+            x[n].className += " active";
+        }
+    </script>
+
+    <script>
+        function producePrompt(message, promptLocation, color) {
+            document.getElementById(promptLocation).innerHTML = message;
+            document.getElementById(promptLocation).style.color = color;
+        }
+    </script>
+    <script>
+        function checkDetails() {
+            if (sessionStorage.getItem("adminEmailStorage") != null) {
+                document.getElementById("loginModal").style.display = "none";
+                var elem = document.getElementById("login3");
+                var indexOfEmail = sessionStorage
+                    .getItem("adminEmailStorage")
+                    .indexOf("@");
+                var username = sessionStorage
+                    .getItem("adminEmailStorage")
+                    .substring(0, indexOfEmail);
+                //change below for drop down
+                elem.outerHTML =
+                    "<div class='dropdown'><button class='dropbtn'>" + username + " <i class='fa fa-caret-down'></i></button><div class='dropdown-content'><a href='personalprofile.html'>Your info</a><a href='bookingsprofile.html'>Your bookings</a><a href='healthprofile.html'>Your health</a><a href='leaderboard.html'>Leaderboard</a><a href='booking.html'>Book now</a><a href='reviews.html'>Leave a review</a><a href='javascript:logOut();'>Logout</a></div>";
+                //change above for drop down
+                elem = document.getElementById("login");
+                elem.parentNode.removeChild(elem);
+                elem = document.getElementById("login2");
+                elem.parentNode.removeChild(elem);
+            }
+        }
+    </script>
+    <!--Login script for nav-->
+    <script>
+        // Get the modal
+        var modal = document.getElementById("loginModal");
+        // Get the button that opens the modal
+        var btn = document.getElementById("login3");
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+        // When the user clicks the button, open the modal
+        btn.onclick = function () {
+            modal.style.display = "block";
+        };
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        };
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
+    </script>
+
+    <script>
+        $(".modal-open-links").on("click", function (e) {
+            //Set display:none for all first
+            $(".hide_first").css("display", "none");
+            content_to_show = $(this).attr("data-modal-show");
+            //Show the one we clicked
+            $("#" + content_to_show).css("display", "block");
+        });
+    </script>
+
+    <div id="footerContent">
+        <div id="footleft">
+            <b>PedalPay</b>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="products.html">Products</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div id="footcent">
+            <b>Information</b>
+            <a href="http://www.cycling-edinburgh.org.uk/bike-paths.htm">Safe Cycle Routes</a>
+            <a href="https://www.donkey.bike/uk-cycling-rules/">Bike Laws UK</a>
+            <a href="https://www.cyclingweekly.com/news/product-news/fix-a-puncture-142674">Fixing a Flat</a>
+            <a href="https://www.wikihow.com/Fix-a-Slipped-Bike-Chain">Fixing a Slipped Chain</a>
+        </div>
+        <div id="footcontact">
+            <b>Find us</b>
+            <p>G37 Earl Mountbatten,</p>
+            <p>Heriot Watt University,</p>
+            <p>Edinburgh,</p>
+            <p>EH144AS</p>
+        </div>
+        <div id="footright">
+            <div id="socials">
+                <a href="https://www.facebook.com/PedalPayLMT/" class="icon"><i class="im im-facebook"></i></a>
+                <a href="https://twitter.com/PayPedal" class="icon"><i class="im im-twitter"></i></a>
+                <a href="https://www.instagram.com/pedalpayuk/" class="icon">
+                    <i class="im im-instagram"></i></a>
+                <a href="mailto:pedalpaylmt@gmail.com" targer="_top" class="icon"><i class="im im-mail"></i></a>
+            </div>
+            <a href="terms.html">Terms</a>
+            <a href="privacy.html">Privacy</a>
+            <a href="sitemap.html">Site map</a>
+        </div>
+        <div id="logo">
+            <h1>PedalPay</h1>
+            <p>©</p>
+        </div>
+        <div id="footbot">
+            <div id="socialsCenter">
+                <a href="https://www.facebook.com/PedalPayLMT/" class="icon"><i class="im im-facebook"></i></a>
+                <a href="https://twitter.com/PayPedal" class="icon"><i class="im im-twitter"></i></a>
+                <a href="https://www.instagram.com/pedalpayuk/" class="icon">
+                    <i class="im im-instagram"></i></a>
+                <a href="mailto:pedalpaylmt@gmail.com" targer="_top" class="icon"><i class="im im-mail"></i></a>
+            </div>
+            <a href="terms.html">Terms</a>
+            <a href="privacy.html">Privacy</a>
+            <a href="sitemap.html">Site map</a>
+        </div>
+    </div>
+
+    <script>
+        function loginValidation() {
+            var email = document.forms["loginForm"]["email"].value;
+            var password = document.forms["loginForm"]["password"].value;
+            if (!email.match(/\S+@\S+\.\S+/)) {
+                producePrompt("Invalid email", "loginEmailPrompt", "#e43353");
+            }
+            if (!password.match(/^.{6,}$/)) {
+                producePrompt("Invalid password", "loginPasswordPrompt", "#e43353");
+            }
+            if (password.match(/^.{6,}$/)) {
+                producePrompt("Password", "loginPasswordPrompt", "#853745");
+            }
+            if (email.match(/\S+@\S+\.\S+/)) {
+                producePrompt("Email", "loginEmailPrompt", "#853745");
+            }
+        }
+    </script>
+
+    <script>
+        function resetValidation() {
+            var email = document.forms["resetPassForm"]["email"].value;
+            if (!email.match(/\S+@\S+\.\S+/)) {
+                producePrompt("Invalid email", "resetEmailPrompt", "#e43353");
+            }
+            if (email.match(/\S+@\S+\.\S+/)) {
+                producePrompt("Invalid email", "resetEmailPrompt", "#853745");
+            }
+        }
+    </script>
+
+    <script>
+        function producePrompt(message, promptLocation, color) {
+            document.getElementById(promptLocation).innerHTML = message;
+            document.getElementById(promptLocation).style.color = color;
+        }
+    </script>
+
+    <script>
+        $(function () {
+            $("#loginForm").on("submit", function (e) {
+                var email = document.forms["loginForm"]["email"].value;
+                var password = document.forms["loginForm"]["password"].value;
+                if (email.match(/\S+@\S+\.\S+/) && password.match(/^.{6,}$/)) {
+                    $.ajax({
+                        type: "post",
+                        url: "http://www.matthewfrankland.co.uk/pedalPay/login/login.php",
+                        data: $("#loginForm").serialize(),
+                        success: function (response) {
+                            $("#loginError").html("");
+                            $("#loginSuccess").html("");
+                            var message = jQuery.parseJSON(response);
+                            if (message.error == true) {
+                                $("#loginError").html("<p>" + message.message + "</p>");
+                            } else {
+                                sessionStorage.setItem("adminEmailStorage", message.message);
+                                sessionStorage.setItem(
+                                    "adminPasswordStorage",
+                                    document.getElementById("password").value
+                                );
+                                document.getElementById("loginModal").style.display = "none";
+                                var elem = document.getElementById("login3");
+                                var indexOfEmail = sessionStorage
+                                    .getItem("adminEmailStorage")
+                                    .indexOf("@");
+                                var username = sessionStorage
+                                    .getItem("adminEmailStorage")
+                                    .substring(0, indexOfEmail);
+                                elem.outerHTML = "<div class='dropdown'><button class='dropbtn'>" + username + " <i class='fa fa-caret-down'></i></button><div class='dropdown-content'><a href='personalprofile.htm'>Your info</a><a href='bookingsprofile.html'>Your bookings</a><a href='healthprofile.html'>Your health</a><a href='#'>Logout</a></div>";
+                                elem = document.getElementById("login");
+                                elem.parentNode.removeChild(elem);
+                                elem = document.getElementById("login2");
+                                elem.parentNode.removeChild(elem);
+                            }
+                        },
+                        error: function () {
+                            //if fails
+                            alert("Something went wrong!");
+                        }
+                    });
+                }
+                e.preventDefault();
+            });
+        });
+    </script>
+
+    <script>
+        $(function () {
+            $("#registerForm").on("submit", function (e) {
+                var email = document.forms["registerForm"]["email"].value;
+                var password = document.forms["registerForm"]["password"].value;
+                var name = document.forms["registerForm"]["name"].value;
+                var dob = document.forms["registerForm"]["dob"].value;
+                var addressone = document.forms["registerForm"]["addressone"].value;
+                var city = document.forms["registerForm"]["city"].value;
+                var zip = document.forms["registerForm"]["zip"].value;
+
+                if (
+                    email.match(/\S+@\S+\.\S+/) &&
+                    password.match(/^.{6,}$/) &&
+                    name.match(/^.{2,}$/) &&
+                    dob.match(
+                        /(0[1-9]|[12][0-9]|3[01])[/](0[1-9]|1[012])[/]([1-9][0-9][0-9][0-9]|0[1-9][0-9][0-9]|00[1-9][0-9]|000[1-9])/
+                    ) &&
+                    addressone.match(/^.{2,}$/) &&
+                    city.match(/^.{2,}$/) &&
+                    zip.match(
+                        /^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$/
+                    )
+                ) {
+                    $.ajax({
+                        type: "post",
+                        url:
+                            "http://www.matthewfrankland.co.uk/pedalPay/login/register.php",
+                        data: $("#registerForm").serialize(),
+                        success: function (response) {
+                            $("#registerErrors").html("");
+                            $("#registerSuccess").html("");
+                            var message = jQuery.parseJSON(response);
+                            if (message.error == true) {
+                                alert(message.message);
+                                $("#registerErrors").html("<p>" + message.message + "</p>");
+                            } else {
+                                sessionStorage.setItem(
+                                    "adminEmailStorage",
+                                    document.getElementById("email").value
+                                );
+                                sessionStorage.setItem(
+                                    "adminPasswordStorage",
+                                    document.getElementById("password").value
+                                );
+                                document.getElementById("loginModal").style.display = "none";
+                                var elem = document.getElementById("login3");
+                                var indexOfEmail = sessionStorage
+                                    .getItem("adminEmailStorage")
+                                    .indexOf("@");
+                                var username = sessionStorage
+                                    .getItem("adminEmailStorage")
+                                    .substring(0, indexOfEmail);
+                                document.getElementById("hide").style.display = "block";
+                                elem.outerHTML = "<div id='dropdowncontent'><a class='notMobile' href='#'>Logout</a><a class='notMobile' href='personalprofile.html'>Your info</a><a class='notMobile' href='bookingsprofile.html'>Bookings</a><a class='notMobile' href='healthprofile.html'>Health</a></div>";
+                                elem = document.getElementById("login");
+                                elem.parentNode.removeChild(elem);
+                                elem = document.getElementById("login2");
+                                elem.parentNode.removeChild(elem);
+                            }
+                        },
+                        error: function () {
+                            //if fails
+                            alert("The request failed");
+                        }
+                    });
+                }
+                e.preventDefault();
+            });
+        });
+    </script>
+
+    <script>
+        $(function () {
+            $("#resetPassForm").on("submit", function (e) {
+                var email = document.forms["resetPassForm"]["email"].value;
+                if (email.match(/\S+@\S+\.\S+/)) {
+                    $.ajax({
+                        type: "post",
+                        url:
+                            "http://www.matthewfrankland.co.uk/pedalPay/resetPass/emailReset.php",
+                        data: $("#resetPassForm").serialize(),
+                        success: function (response) {
+                            $("#resetErrors").html("");
+                            var message = jQuery.parseJSON(response);
+                            $("#resetErrors").html("<p>" + message.message + "</p>");
+                        },
+                        error: function () {
+                            //if fails
+                            alert("The request failed");
+                        }
+                    });
+                }
+                e.preventDefault();
+            });
+        });
+    </script>
+    <script>
+        function myFunction() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+        }
+    </script>
+    <script>
+        function logOut() {
+            sessionStorage.removeItem("adminEmailStorage");
+            sessionStorage.removeItem("adminNameStorage");
+            sessionStorage.removeItem("adminDOBStorage");
+            sessionStorage.removeItem("adminMobileStorage");
+            sessionStorage.removeItem("adminAddressStorage");
+            sessionStorage.removeItem("adminCityStorage");
+            sessionStorage.removeItem("adminZIPStorage");
+            sessionStorage.removeItem("adminGenderStorage");
+            sessionStorage.removeItem("adminPasswordStorage");
+            window.location.reload();
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+{
+	"Metrics":{
+		},
+	"Topics": {
+		"topic0": {
+			"k2": 7,
+			"everest": 6,
+			"anapurna": 5,
+			"mtblanc": 4,
+			"aconcagua": 9,
+			"bennevis": 3,
+			"kilimanjaro": 4
+		},
+		"topic1": {
+			"january": 1,
+			"february": 2,
+			"march": 4,
+			"april": 5,
+			"may": 6,
+			"june": 9,
+			"july": 7
+		},
+		"topic2": {
+			"mango": 5,
+			"kiwi": 6,
+			"pomegranade": 8,
+			"strawberry": 5,
+			"dragonfruit": 4,
+			"coconut": 3,
+			"blueberry": 7
+		}
+	},
+	"ID": "3"
+}

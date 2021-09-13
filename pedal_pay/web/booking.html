@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<LINK REL="StyleSheet" HREF="css/style.css" TYPE="text/css" />
+	<LINK REL="StyleSheet" HREF="css/iconic/css/iconmonstr-iconic-font.min.css" TYPE="text/css" />
+	<title>PedalPay</title>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<style>
+		table {
+			font-family: arial, sans-serif;
+			border-collapse: collapse;
+			width: 100%;
+		}
+
+		td,
+		th {
+			border: 1px solid #dddddd;
+			text-align: left;
+			padding: 8px;
+			background-color: #853745;
+		}
+	</style>
+</head>
+
+<body onload="checkDetails();">
+	<div class="topnav" id="myTopnav">
+		<a href="index.html" class="logo">PedalPay</a>
+		<a href="index.html">Home</a>
+		<a href="about.html">About</a>
+		<a href="products.html">Products</a>
+		<a href="contact.html">Contact</a>
+		<a href="#" id="login3" class="btn btn-primary modal-open-links" data-toggle="modal" data-modal-show="one"
+			data-target="#myModal">Login</a>
+		<a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+
+	</div>
+
+	<!-- Login Modal -->
+	<div id="loginModal" class="modal">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="close" data-dismiss="modal">&times;</span>
+				<h1>PedalPay</h1>
+			</div>
+			<div class="modal-body">
+				<div id="one" class="hide_first">
+					<div id="form">
+						<form id="loginForm" method="post" onsubmit="event.preventDefault(); loginValidation()"
+							action="http://www.matthewfrankland.co.uk/pedalPay/login/login.php">
+							<div class="loginError" id="loginError"></div>
+							<div class="loginSuccess" id="loginSuccess"></div>
+							<div class="inputs">
+								<h2>Login</h2>
+								<label id="loginEmailPrompt"> Email </label>
+								<input type="text" name="email" placeholder="Your email.." />
+							</div>
+
+							<div class="inputs">
+								<label id="loginPasswordPrompt"> Password </label>
+								<input type="password" name="password" placeholder="Your password.." />
+							</div>
+
+							<div class="inputs">
+								<div id="buttonholder">
+									<button type="submit" name="login" class="btn">
+										Login
+									</button>
+								</div>
+							</div>
+							<p>
+								Forgot your password? Reset it
+								<a href="#" id="login2" class="btn btn-danger modal-open-links" data-toggle="modal"
+									data-modal-show="three" data-target="#myModal">here</a>
+							</p>
+						</form>
+					</div>
+				</div>
+				<div id="two" style="display:none" class="hide_first">
+					<form id="registerForm" method="post" onsubmit="event.preventDefault();  registerValidation()"
+						action="http://www.matthewfrankland.co.uk/pedalPay/login/register.php">
+						<div class="registerErrors" id="registerErrors"></div>
+						<div class="registerSuccess" id="registerSuccess"></div>
+						<div class="inputs">
+							<h2>Sign Up</h2>
+							<label id="registerEmailPrompt"> Email </label>
+							<input type="text" name="email" placeholder="Your email.." />
+						</div>
+
+						<div class="inputs">
+							<label id="registerPasswordPrompt"> Password </label>
+							<input type="password" name="password" placeholder="Your password.." />
+						</div>
+
+						<div class="inputs">
+							<label id="registerNamePrompt"> Name </label>
+							<input type="text" name="name" placeholder="Your name.." />
+						</div>
+
+						<div class="inputs">
+							<label id="registerDobPrompt"> DOB </label>
+							<input type="text" name="dob" placeholder="Your date of birth.." />
+						</div>
+
+						<div class="inputs">
+							<label id="registerAddressPrompt"> Address line 1 </label>
+							<input type="text" name="addressone" placeholder="Your address.." />
+						</div>
+
+						<div class="inputs">
+							<label id="registerAddress2Prompt"> Address line 2 </label>
+							<input type="text" name="addresstwo" placeholder="Your address.." />
+						</div>
+
+						<div class="inputs">
+							<label id="registerCityPrompt"> City </label>
+							<input type="text" name="city" placeholder="Your city.." />
+						</div>
+
+						<div class="inputs">
+							<label id="registerPostCodePrompt"> Post code </label>
+							<input type="text" name="zip" placeholder="Your post code.." />
+						</div>
+
+						<div class="inputs">
+							<div id="buttonholder">
+								<button type="submit" name="login" class="btn">
+									Sign up
+								</button>
+							</div>
+						</div>
+						<p>
+							Already signed up? Login
+							<a href="#" id="login2" class="btn btn-danger modal-open-links" data-toggle="modal"
+								data-modal-show="one" data-target="#myModal">here</a>
+						</p>
+						<p>
+							Forgot your password? Reset it
+							<a href="#" id="login2" class="btn btn-danger modal-open-links" data-toggle="modal"
+								data-modal-show="three" data-target="#myModal">here</a>
+						</p>
+					</form>
+				</div>
+				<div id="three" style="display:none" class="hide_first">
+					<form id="resetPassForm" method="post" onsubmit="event.preventDefault(); resetValidation()"
+						action="http://www.matthewfrankland.co.uk/pedalPay/resetPass/emailReset.php">
+						<div class="resetErrors" id="resetErrors"></div>
+						<div class="inputs">
+							<h2>Reset Password</h2>
+							<label id="resetEmailPrompt"> Email </label>
+							<input type="text" name="email" placeholder="Your email.." />
+						</div>
+
+						<div class="inputs">
+							<div id="buttonholder">
+								<button type="submit" name="login" class="btn">
+									Reset Password
+								</button>
+							</div>
+						</div>
+						<p>
+							Remember your password? Login
+							<a href="#" id="login2" class="btn btn-danger modal-open-links" data-toggle="modal"
+								data-modal-show="one" data-target="#myModal">here</a>
+						</p>
+						<p>
+							Not signed up? Sign up
+							<a href="#" id="login2" class="btn btn-danger modal-open-links" data-toggle="modal"
+								data-modal-show="two" data-target="#myModal">here</a>
+						</p>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		function checkDetails() {
+			if (sessionStorage.getItem("adminEmailStorage") != null) {
+				document.getElementById("loginModal").style.display = "none";
+				var elem = document.getElementById("login3");
+				var indexOfEmail = sessionStorage
+					.getItem("adminEmailStorage")
+					.indexOf("@");
+				var username = sessionStorage
+					.getItem("adminEmailStorage")
+					.substring(0, indexOfEmail);
+				//change below for drop down
+				elem.outerHTML =
+					"<div class='dropdown'><button class='dropbtn'>" + username + " <i class='fa fa-caret-down'></i></button><div class='dropdown-content'><a href='personalprofile.html'>Your info</a><a href='bookingsprofile.html'>Your bookings</a><a href='healthprofile.html'>Your health</a><a href='leaderboard.html'>Leaderboard</a><a href='booking.html'>Book now</a><a href='reviews.html'>Leave a review</a><a href='javascript:logOut();'>Logout</a></div>";
+				//change above for drop down
+			}
+		}
+	</script>
+	<!--Login script for nav-->
+	<script>
+		// Get the modal
+		var modal = document.getElementById("loginModal");
+		// Get the button that opens the modal
+		var btn = document.getElementById("login3");
+		// Get the <span> element that closes the modal
+		var span = document.getElementsByClassName("close")[0];
+		// When the user clicks the button, open the modal
+		btn.onclick = function () {
+			modal.style.display = "block";
+		};
+		// When the user clicks on <span> (x), close the modal
+		span.onclick = function () {
+			modal.style.display = "none";
+		};
+		// When the user clicks anywhere outside of the modal, close it
+		window.onclick = function (event) {
+			if (event.target == modal) {
+				modal.style.display = "none";
+			}
+		};
+	</script>
+
+
+	<script>
+		$(".modal-open-links").on("click", function (e) {
+			//Set display:none for all first
+			$(".hide_first").css("display", "none");
+			content_to_show = $(this).attr("data-modal-show");
+			//Show the one we clicked
+			$("#" + content_to_show).css("display", "block");
+		});
+	</script>
+
+	<div id="bookingContent">
+		<div class="header">
+			<div class="headerText">
+				<h1>Booking</h1>
+			</div>
+		</div>
+		<div id="bookingBox">
+			<div class="tab">
+				<div id="locationDiv">
+					<p>Please select a location on the map to book a bike</p>
+				</div>
+				<div id="map"></div>
+			</div>
+			<div id="form">
+
+				<div class="tab">
+					<label for="bookStart">Booking start time</label><br />
+					<select id="startHour" name="bookStartHour">
+						<option value="">Hour</option>
+						<option value="1">01</option>
+						<option value="2">02</option>
+						<option value="3">03</option>
+						<option value="4">04</option>
+						<option value="5">05</option>
+						<option value="6">06</option>
+						<option value="7">07</option>
+						<option value="8">08</option>
+						<option value="9">09</option>
+						<option value="10">10</option>
+						<option value="11">11</option>
+						<option value="12">12</option>
+						<option value="13">13</option>
+						<option value="14">14</option>
+						<option value="15">15</option>
+						<option value="16">16</option>
+						<option value="17">17</option>
+						<option value="18">18</option>
+						<option value="19">19</option>
+						<option value="20">20</option>
+						<option value="21">21</option>
+						<option value="22">22</option>
+						<option value="23">23</option>
+						<option value="00">00</option>
+					</select>
+
+					<select id="startMinutes" name="bookStartMinutes">
+						<option value="">Minutes</option>
+						<option value="00">00</option>
+						<option value="1">01</option>
+						<option value="2">02</option>
+						<option value="3">03</option>
+						<option value="4">04</option>
+						<option value="5">05</option>
+						<option value="6">06</option>
+						<option value="7">07</option>
+						<option value="8">08</option>
+						<option value="9">09</option>
+						<option value="10">10</option>
+						<option value="11">11</option>
+						<option value="12">12</option>
+						<option value="13">13</option>
+						<option value="14">14</option>
+						<option value="15">15</option>
+						<option value="16">16</option>
+						<option value="17">17</option>
+						<option value="18">18</option>
+						<option value="19">19</option>
+						<option value="20">20</option>
+						<option value="21">21</option>
+						<option value="22">22</option>
+						<option value="23">23</option>
+						<option value="00">24</option>
+						<option value="00">25</option>
+						<option value="00">26</option>
+						<option value="00">27</option>
+						<option value="00">28</option>
+						<option value="00">29</option>
+						<option value="00">30</option>
+						<option value="00">31</option>
+						<option value="00">32</option>
+						<option value="00">33</option>
+						<option value="00">34</option>
+						<option value="00">35</option>
+						<option value="00">36</option>
+						<option value="00">37</option>
+						<option value="00">38</option>
+						<option value="00">39</option>
+						<option value="00">40</option>
+						<option value="00">41</option>
+						<option value="00">42</option>
+						<option value="00">43</option>
+						<option value="00">44</option>
+						<option value="00">45</option>
+						<option value="00">46</option>
+						<option value="00">47</option>
+						<option value="00">48</option>
+						<option value="00">49</option>
+						<option value="00">50</option>
+						<option value="00">51</option>
+						<option value="00">52</option>
+						<option value="00">53</option>
+						<option value="00">54</option>
+						<option value="00">55</option>
+						<option value="00">56</option>
+						<option value="00">57</option>
+						<option value="00">58</option>
+						<option value="00">59</option>
+					</select>
+					<br /><br />
+					<label for="bookEnd">Duration of booking</label>
+					<br />
+					<select name="bikeType" id="end">
+						<option value="1">One hour</option>
+						<option value="2">Two hours</option>
+						<option value="3">Three hours</option>
+						<option value="4">Four hours</option>
+						<option value="5">Five hours</option>
+						<option value="6">Six hours</option>
+					</select>
+				</div>
+				<div class="tab">
+					<label for="bikeType">Type of bike</label>
+					<select name="bikeType" id="bikeType">
+						<option value="CityBike">City bike</option>
+						<option value="Handbike">Handbike</option>
+						<option value="Mountain">Mountain bike</option>
+						<option value="Tandem">Tandem</option>
+					</select>
+				</div>
+				<div class="tab">
+					<label for="accesories">Any accesories?</label><br>
+					<input type="checkbox" name="pump" id="pump" class="listed" value="pump">
+					<label>Pump <light>comes with a puncture repair kit.</light></label>
+					<br />
+					<input type="checkbox" name="highvis" id="highvis" class="listed" value="highvis">
+					<label>Vis Jacket <light>ensures you're seen by drivers.</light></label>
+					<br />
+					<input type="checkbox" name="helmet" id="helmet" class="listed" value="helmet">
+					<label>Helmet<light> helps protect your brain in an accident.</light></label>
+
+				</div>
+				<div id="buttonholder">
+					<button type="button" id="prevBtn" onclick="nextPrev(-1)">
+						Previous
+					</button>
+					<button type="button" id="nextBtn" onclick="nextPrev(1)">
+						Next
+					</button>
+				</div>
+
+				<div id="booking"></div>
+				<div id="hide">
+					<table id="pastbookings"></table>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div id="footerContent">
+		<div id="footleft">
+			<b>PedalPay</b>
+			<a href="index.html">Home</a>
+			<a href="about.html">About</a>
+			<a href="products.html">Products</a>
+			<a href="contact.html">Contact</a>
+		</div>
+		<div id="footcent">
+			<b>Information</b>
+			<a href="http://www.cycling-edinburgh.org.uk/bike-paths.htm">Safe Cycle Routes</a>
+			<a href="https://www.donkey.bike/uk-cycling-rules/">Bike Laws UK</a>
+			<a href="https://www.cyclingweekly.com/news/product-news/fix-a-puncture-142674">Fixing a Flat</a>
+			<a href="https://www.wikihow.com/Fix-a-Slipped-Bike-Chain">Fixing a Slipped Chain</a>
+		</div>
+		<div id="footcontact">
+			<b>Find us</b>
+			<p>G37 Earl Mountbatten,</p>
+			<p>Heriot Watt University,</p>
+			<p>Edinburgh,</p>
+			<p>EH144AS</p>
+		</div>
+		<div id="footright">
+			<div id="socials">
+				<a href="https://www.facebook.com/PedalPayLMT/" class="icon"><i class="im im-facebook"></i></a>
+				<a href="https://twitter.com/PayPedal" class="icon"><i class="im im-twitter"></i></a>
+				<a href="https://www.instagram.com/pedalpayuk/" class="icon">
+					<i class="im im-instagram"></i></a>
+				<a href="mailto:pedalpaylmt@gmail.com" targer="_top" class="icon"><i class="im im-mail"></i></a>
+			</div>
+			<a href="terms.html">Terms</a>
+			<a href="privacy.html">Privacy</a>
+			<a href="sitemap.html">Site map</a>
+		</div>
+		<div id="logo">
+			<h1>PedalPay</h1>
+			<p>©</p>
+		</div>
+		<div id="footbot">
+			<div id="socialsCenter">
+				<a href="https://www.facebook.com/PedalPayLMT/" class="icon"><i class="im im-facebook"></i></a>
+				<a href="https://twitter.com/PayPedal" class="icon"><i class="im im-twitter"></i></a>
+				<a href="https://www.instagram.com/pedalpayuk/" class="icon">
+					<i class="im im-instagram"></i></a>
+				<a href="mailto:pedalpaylmt@gmail.com" targer="_top" class="icon"><i class="im im-mail"></i></a>
+			</div>
+			<a href="terms.html">Terms</a>
+			<a href="privacy.html">Privacy</a>
+			<a href="sitemap.html">Site map</a>
+		</div>
+	</div>
+</body>
+
+<script>
+	function loginValidation() {
+		var email = document.forms["loginForm"]["email"].value;
+		var password = document.forms["loginForm"]["password"].value;
+		if (!email.match(/\S+@\S+\.\S+/)) {
+			producePrompt("Invalid email", "loginEmailPrompt", "#e43353");
+		}
+		if (!password.match(/^.{6,}$/)) {
+			producePrompt("Invalid password", "loginPasswordPrompt", "#e43353");
+		}
+		if (password.match(/^.{6,}$/)) {
+			producePrompt("Password", "loginPasswordPrompt", '#853745');
+		}
+		if (email.match(/\S+@\S+\.\S+/)) {
+			producePrompt("Email", "loginEmailPrompt", '#853745');
+		}
+	}
+</script>
+
+<script>
+	function registerValidation() {
+		var email = document.forms["registerForm"]["email"].value;
+		var password = document.forms["registerForm"]["password"].value;
+		var name = document.forms["registerForm"]["name"].value;
+		var dob = document.forms["registerForm"]["dob"].value;
+		var addressone = document.forms["registerForm"]["addressone"].value;
+		var city = document.forms["registerForm"]["city"].value;
+		var zip = document.forms["registerForm"]["zip"].value;
+
+		if (!email.match(/\S+@\S+\.\S+/)) {
+			producePrompt("Invalid email", "registerEmailPrompt", "#e43353");
+		}
+		if (!password.match(/^.{6,}$/)) {
+			producePrompt("Invalid password", "registerPasswordPrompt", "#e43353");
+		}
+		if (!name.match(/^.{2,}$/)) {
+			producePrompt("Invalid name", "registerNamePrompt", "#e43353");
+		}
+		if (!dob.match(/(0[1-9]|[12][0-9]|3[01])[/](0[1-9]|1[012])[/]([1-9][0-9][0-9][0-9]|0[1-9][0-9][0-9]|00[1-9][0-9]|000[1-9])/)) {
+			producePrompt("Invalid DOB", "registerDobPrompt", "#e43353")
+		}
+		if (!addressone.match(/^.{2,}$/)) {
+			producePrompt("Invalid address", "registerAddressPrompt", "#e43353");
+		}
+		if (!city.match(/^.{2,}$/)) {
+			producePrompt("Invalid city", "registerCityPrompt", "#e43353");
+		}
+		if (!zip.match(/^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$/)) {
+			producePrompt("Invalid post code", "registerPostCodePrompt", "#e43353");
+		}
+
+
+		if (password.match(/^.{6,}$/)) {
+			producePrompt("Password", "registerPasswordPrompt", "#853745");
+		}
+		if (email.match(/\S+@\S+\.\S+/)) {
+			producePrompt("Email", "registerEmailPrompt", "#853745");
+		}
+		if (name.match(/^.{2,}$/)) {
+			producePrompt("Name", "registerNamePrompt", "#853745");
+		}
+		if (dob.match(/(0[1-9]|[12][0-9]|3[01])[/](0[1-9]|1[012])[/]([1-9][0-9][0-9][0-9]|0[1-9][0-9][0-9]|00[1-9][0-9]|000[1-9])/)) {
+			producePrompt("DOB", "registerDobPrompt", "#853745")
+		}
+		if (addressone.match(/^.{2,}$/)) {
+			producePrompt("Address line 1", "registerAddressPrompt", "#853745");
+		}
+		if (city.match(/^.{2,}$/)) {
+			producePrompt("City", "registerCityPrompt", "#853745");
+		}
+		if (zip.match(/^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$/)) {
+			producePrompt("Post code", "registerPostCodePrompt", "#853745");
+		}
+	}
+</script>
+
+<script>
+	function resetValidation() {
+		var email = document.forms["resetPassForm"]["email"].value;
+		if (!email.match(/\S+@\S+\.\S+/)) {
+			producePrompt("Invalid email", "resetEmailPrompt", "#e43353");
+		}
+		if (email.match(/\S+@\S+\.\S+/)) {
+			producePrompt("Invalid email", "resetEmailPrompt", "#853745");
+		}
+	}
+</script>
+
+<script>
+	function producePrompt(message, promptLocation, color) {
+		document.getElementById(promptLocation).innerHTML = message;
+		document.getElementById(promptLocation).style.color = color;
+	}
+</script>
+
+
+
+
+
+<script>
+	$(function () {
+		$("#loginForm").on("submit", function (e) {
+			alert("submitting");
+			var email = document.forms["loginForm"]["email"].value;
+			var password = document.forms["loginForm"]["password"].value;
+			if (email.match(/\S+@\S+\.\S+/) && password.match(/^.{6,}$/)) {
+				$.ajax({
+					type: "post",
+					url: "http://www.matthewfrankland.co.uk/pedalPay/login/login.php",
+					data: $("#loginForm").serialize(),
+					success: function (response) {
+						alert(response);
+						$("#loginError").html("");
+						$("#loginSuccess").html("");
+						var message = jQuery.parseJSON(response);
+						if (message.error == true) {
+							$("#loginError").html("<p>" + message.message + "</p>");
+						} else {
+							sessionStorage.setItem("adminEmailStorage", message.message);
+							sessionStorage.setItem("adminNameStorage", message.userDetails[0].name);
+							sessionStorage.setItem("adminDOBStorage", message.userDetails[0].dob);
+							sessionStorage.setItem("adminMobileStorage", message.userDetails[0].mobile);
+							sessionStorage.setItem("adminAddressStorage", message.userDetails[0].addressone);
+							sessionStorage.setItem("adminCityStorage", message.userDetails[0].city);
+							sessionStorage.setItem("adminZIPStorage", message.userDetails[0].zip);
+							sessionStorage.setItem("adminGenderStorage", message.userDetails[0].gender);
+							/*alert(sessionStorage.getItem("adminEmailStorage"));
+							alert(sessionStorage.getItem("adminNameStorage"));
+							alert(sessionStorage.getItem("adminDOBStorage"));
+							alert(sessionStorage.getItem("adminMobileStorage"));
+							alert(sessionStorage.getItem("adminAddressStorage"));
+							alert(sessionStorage.getItem("adminCityStorage"));
+							alert(sessionStorage.getItem("adminZIPStorage"));
+							alert(sessionStorage.getItem("adminGenderStorage"));*/
+							sessionStorage.setItem(
+								"adminPasswordStorage",
+								document.getElementById("password").value
+							);
+							document.getElementById("loginModal").style.display = "none";
+							var elem = document.getElementById("login3");
+							var indexOfEmail = sessionStorage
+								.getItem("adminEmailStorage")
+								.indexOf("@");
+							var username = sessionStorage
+								.getItem("adminEmailStorage")
+								.substring(0, indexOfEmail);
+							elem.outerHTML =
+								"<div class='dropdown'><button class='dropbtn'>" + username + " <i class='fa fa-caret-down'></i></button><div class='dropdown-content'><a href='personalprofile.html'>Your info</a><a href='bookingsprofile.html'>Your bookings</a><a href='healthprofile.html'>Your health</a><a href='#'>Logout</a></div>";
+
+						}
+					},
+					error: function () {
+						//if fails
+						alert("Something went wrong!");
+					}
+				});
+			}
+			e.preventDefault();
+		});
+	});
+</script>
+
+
+<script>
+	$(function () {
+		$("#registerForm").on("submit", function (e) {
+			var email = document.forms["registerForm"]["email"].value;
+			var password = document.forms["registerForm"]["password"].value;
+			var name = document.forms["registerForm"]["name"].value;
+			var dob = document.forms["registerForm"]["dob"].value;
+			var addressone = document.forms["registerForm"]["addressone"].value;
+			var city = document.forms["registerForm"]["city"].value;
+			var zip = document.forms["registerForm"]["zip"].value;
+
+			if (email.match(/\S+@\S+\.\S+/) && password.match(/^.{6,}$/) && name.match(/^.{2,}$/) &&
+				dob.match(/(0[1-9]|[12][0-9]|3[01])[/](0[1-9]|1[012])[/]([1-9][0-9][0-9][0-9]|0[1-9][0-9][0-9]|00[1-9][0-9]|000[1-9])/)
+				&&
+				addressone.match(/^.{2,}$/) && city.match(/^.{2,}$/) && zip.match(/^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$/)) {
+				$.ajax({
+					type: "post",
+					url:
+						"http://www.matthewfrankland.co.uk/pedalPay/login/register.php",
+					data: $("#registerForm").serialize(),
+					success: function (response) {
+						$("#registerErrors").html("");
+						$("#registerSuccess").html("");
+						var message = jQuery.parseJSON(response);
+						if (message.error == false) {
+							$("#registerErrors").html("<p>" + message.message + "</p>");
+						} else {
+							$("#registerSuccess").html("<p>" + message.message + "</p>");
+						}
+					},
+					error: function () {
+						//if fails
+						alert("The request failed");
+					}
+				});
+			}
+			e.preventDefault();
+		});
+	});
+</script>
+
+
+<script>
+	$(function () {
+		$('#resetPassForm').on('submit', function (e) {
+			var email = document.forms["resetPassForm"]["email"].value;
+			if (email.match(/\S+@\S+\.\S+/)) {
+				$.ajax({
+					type: 'post',
+					url: 'http://www.matthewfrankland.co.uk/pedalPay/resetPass/emailReset.php',
+					data: $('#resetPassForm').serialize(),
+					success: function (response) {
+						$('#resetErrors').html("");
+						var message = jQuery.parseJSON(response);
+						$('#resetErrors').html('<p>' + message.message + '</p>');
+					}, error: function () {
+						//if fails   
+						alert('The request failed');
+					}
+				});
+			}
+			e.preventDefault();
+		});
+	});
+</script>
+
+<script>
+	var map;
+	var locationlookup;
+	function initMap() {
+		map = new google.maps.Map(document.getElementById('map'), {
+			center: { lat: 55.952, lng: -3.19 },
+			zoom: 12
+		});
+		//var bikeLayer = new google.maps.BicyclingLayer();
+		//bikeLayer.setMap(map);
+		loadmarkers();
+		var date = new Date();
+		$('#start').attr({
+			'value': date.toISOString().substring(11, 16),
+			'min': date.toISOString().substring(11, 16)
+		});
+	}
+
+
+	var lastclickedplace = " ";
+	function loadmarkers() {
+		var ret = "{\"error\":false,\"message\":[{\"id\":\"1\",\"hub\":\"Haymarket\",\"lat\":\"55.94532700\",\"lng\":\"-3.21830800\",\"city\":\"1\"},{\"id\":\"2\",\"hub\":\"Granton\",\"lat\":\"55.98278220\",\"lng\":\"-3.25090260\",\"city\":\"1\"},{\"id\":\"3\",\"hub\":\"Waverly\",\"lat\":\"55.95200000\",\"lng\":\"-3.19000000\",\"city\":\"1\"},{\"id\":\"4\",\"hub\":\"Sighthill\",\"lat\":\"55.9246\",\"lng\":\"-3.2973243\",\"city\":\"1\"},{\"id\":\"5\",\"hub\":\"Leith\",\"lat\":\"55.97255000\",\"lng\":\"-3.17094900\",\"city\":\"1\"},{\"id\":\"6\",\"hub\":\"Morningside\",\"lat\":\"55.92016300\",\"lng\":\"-3.21631000\",\"city\":\"1\"},{\"id\":\"7\",\"hub\":\"Fort-Kinnard\",\"lat\":\"55.93228000\",\"lng\":\"-3.10593000\",\"city\":\"1\"},{\"id\":\"8\",\"hub\":\"Edinburgh Zoo\",\"lat\":\"55.94220000\",\"lng\":\"-3.26930000\",\"city\":\"1\"},{\"id\":\"9\",\"hub\":\"Holyrood\",\"lat\":\"55.94600000\",\"lng\":\"-3.15960000\",\"city\":\"1\"},{\"id\":\"10\",\"hub\":\"Liberton\",\"lat\":\"55.91398000\",\"lng\":\"-3.16135000\",\"city\":\"1\"},{\"id\":\"11\",\"hub\":\"Tower of London\",\"lat\":\"51.50853000\",\"lng\":\"-0.07613200\",\"city\":\"2\"},{\"id\":\"12\",\"hub\":\"London City Hall\",\"lat\":\"51.50479000\",\"lng\":\"-0.07870900\",\"city\":\"2\"},{\"id\":\"13\",\"hub\":\"London Bridge\",\"lat\":\"51.50787900\",\"lng\":\"-0.08773200\",\"city\":\"2\"},{\"id\":\"14\",\"hub\":\"Big Ben\",\"lat\":\"51.50072900\",\"lng\":\"-0.12462500\",\"city\":\"2\"}]}";
+		ret = JSON.parse(ret);
+		ret = ret.message;
+		locationlookup = ret;
+		// if fails print it somewhere
+		var infowindow = new google.maps.InfoWindow();
+		var i;
+		for (i = 0; i < ret.length; i++) {
+			var marker = new google.maps.Marker({
+				position: { lat: parseFloat(ret[i].lat), lng: parseFloat(ret[i].lng) },
+				map: map,
+				title: ret[i].hub
+			})
+
+			google.maps.event.addListener(marker, 'click', function (marker, i) {
+				return function () {
+					$("#locationDiv").empty();
+					$("#locationDiv").append("<p> You are booking a bike at: " + marker['title'] + "</p>");
+					lastclickedplace = marker['title'];
+					infowindow.setContent("<p style=\"font-size:150%;color:#000000;\">" + marker['title'] + "</p>");
+					infowindow.open(map, marker);
+				}
+			}(marker, i));
+		}
+	}
+	function prevBook(response) {
+		var bookings;
+		bookings = JSON.parse(response);
+		bookings = bookings.message
+		var i, x;
+		var place = "Haymarket";
+		$("#pastbookings").empty();
+		$("#pastbookings").append(
+			+ "<tr>"
+			+ "<th>Location</th>"
+			+ "<th>Returned</th>"
+			+ "<th>Return ID</th>"
+			+ "<th>Start Time</th>"
+			+ "<th>End Time</th>"
+			+ "<th>Unlock Code</th>"
+			+ "<\tr>"
+		);
+		for (i = 0; i < bookings.length; i++) {
+			// probably dont want to print returned bikes if you do comment this out
+			if (bookings[i].returned == 0) {
+				for (x = 0; x < locationlookup.length; x++) {
+					if (bookings[i].lid == locationlookup[x].id) {
+						place = locationlookup[x].hub;
+					}
+				}
+
+				$("#pastbookings").append(
+					"<tr>"
+					+ "<td>" + place + "</td>" // TODO RETURN NAME
+					+ "<td>" + (bookings[i].returned == 0 ? "No" : "Yes") + "</td>"
+					+ "<td>" + bookings[i].id + "</td>"
+					+ "<td>" + bookings[i].bookstart + "</td>"
+					+ "<td>" + bookings[i].bookend + "</td>"
+					+ "<td>" + bookings[i].code + "</td>"
+					+ "<\tr>"
+				);
+			}
+		}
+	}
+	Date.prototype.addHours = function (h) {
+		this.setTime(this.getTime() + (h * 60 * 60 * 1000));
+		return this;
+	}
+	function book() {
+		$("#booking").empty();
+		var changed = 0;
+
+		if (changed == 1) {
+			return
+		}
+		var form = new FormData();
+		form.append("email", sessionStorage.getItem('adminEmailStorage'));
+		form.append("password", sessionStorage.getItem('adminPasswordStorage'));
+		//startHour, startMinutes
+		var curdt = new Date();
+		curdt.setHours(document.getElementById("startHour").value);
+		curdt.setMinutes(document.getElementById("startMinutes").value);
+		curdt.setSeconds(00);
+		var dob = curdt;
+		form.append("bookStart", dob.toJSON().slice(0, 19).replace('T', ' '));
+		dob.addHours(document.getElementById("end").value);
+		form.append("bookEnd", dob.toJSON().slice(0, 19).replace('T', ' '));
+		form.append("hub", lastclickedplace);
+		form.append("bikeType", document.getElementById("bikeType").value);
+		var pastbookings = {
+			"async": true,
+			"crossDomain": true,
+			"url": "http://www.matthewfrankland.co.uk/pedalPay/userFunctions/getBookings.php",
+			"method": "POST",
+			"data": {
+				"email": form.get('email'),
+				"password": form.get('password')
+			}
+		}
+
+		var settings = {
+			"async": true,
+			"crossDomain": true,
+			"url": "http://www.matthewfrankland.co.uk/pedalPay/userFunctions/makeBooking.php",
+			"method": "POST",
+			"processData": false,
+			"contentType": false,
+			"mimeType": "multipart/form-data",
+			"data": form
+		}
+
+		var accsettings = {
+			"async": true,
+			"crossDomain": true,
+			"url": "http://www.matthewfrankland.co.uk/pedalPay/userFunctions/checkoutAccessory.php",
+			"method": "POST",
+			"data": {
+				"email": form.get('email'),
+				"password": form.get('password'),
+				"hub": form.get('hub'),
+				"item": ""
+			}
+		}
+
+
+
+		$.ajax(settings).done(function (response) {
+			response = JSON.parse(response);
+
+			$.ajax(pastbookings).done(function (response) {
+				prevBook(response);
+			});
+			if (response.error == false) {
+				var bookedbike = {
+					CityBike: "City bike",
+					Mountain: "Mountain bike",
+					Handbike: "Handbike",
+					Tandem: "Tandem bike"
+				}
+				$("#booking").append("<div id=\"response\"><h4>Booking accepted: </h4>"
+					+ "<p>Booked from " + form.get('hub')
+					+ " at " + form.get('bookStart').replace("T", " ")
+					+ " until " + form.get('bookEnd').replace("T", " ") + "."
+					+ "<p>The booked bike type is a " + bookedbike[form.get('bikeType')] + ".");
+				var bike = bookedbike[form.get('bikeType')];
+				if (bike == "City bike") {
+					totalPrice = totalPrice + 1.5;
+					totalPrice = totalPrice + parseInt(document.getElementById("end").value);
+				} else if (bike == "Mountain bike") {
+					totalPrice = totalPrice + 2;
+					totalPrice = totalPrice + parseInt(document.getElementById("end").value);
+				} else if (bike == "Handbike") {
+					totalPrice = totalPrice + 1.5;
+					totalPrice = totalPrice + parseInt(document.getElementById("end").value);
+				} else if (bike == "Tandem bike") {
+					totalPrice = totalPrice + 2;
+					totalPrice = totalPrice + parseInt(document.getElementById("end").value);
+				}
+				if ($('#highvis').is(':checked')) {
+					totalPrice = totalPrice + 2;
+					accsettings.data.item = "highvis";
+					$.ajax(accsettings).done(function (responseacc) {
+						responseacc = JSON.parse(responseacc);
+						if (responseacc.error == false) {
+							$("#booking").append("<p>" + accsettings.data.item + "High visibility vest booked</p>");
+						}
+					});
+				}
+				if ($('#helmet').is(':checked')) {
+					totalPrice = totalPrice + 2;
+					accsettings.data.item = "helmet";
+					$.ajax(accsettings).done(function (responseacc) {
+						responseacc = JSON.parse(responseacc);
+						if (responseacc.error == false) {
+							$("#booking").append("<p>Helmet booked</p>");
+						}
+					});
+				}
+				if ($('#pump').is(':checked')) {
+					totalPrice = totalPrice + 2.5;
+					accsettings.data.item = "pump";
+					$.ajax(accsettings).done(function (responseacc) {
+						responseacc = JSON.parse(responseacc);
+						if (responseacc.error == false) {
+							$("#response").append("<p>Bike pump booked</p>");
+						}
+					});
+				}
+				$("#response").append("<p>The total price of this booking is £" + totalPrice + "</p>");
+				$("#response").append("<p>To edit this booking, please go to your <a href=\"bookingsprofile.html\">bookings profile</a> </p>");
+				$("#response").append("<br><br><p><a href=\"index.html\">HOME</a> </p>");
+				$("#booking").append("</div>");
+			} else {
+				$("#booking").append("<p>"
+					+ response.message
+					+ "</p>");
+			}
+			totalPrice = 0;
+		});
+	}
+
+
+	var totalPrice = 0;
+	var currentTab = 0; // Current tab is set to be the first tab (0)
+	showTab(currentTab); // Display the current tab
+
+	function showTab(n) {
+		// This function will display the specified tab of the form...
+		var x = document.getElementsByClassName("tab");
+		x[n].style.display = "block";
+		//... and fix the Previous/Next buttons:
+		if (n == 0) {
+			document.getElementById("prevBtn").style.display = "none";
+		} else {
+			document.getElementById("prevBtn").style.display = "inline";
+		}
+		if (n == x.length - 1) {
+			document.getElementById("nextBtn").innerHTML = "Submit";
+		} else {
+			document.getElementById("nextBtn").innerHTML = "Next";
+		}
+		//... and run a function that will display the correct step indicator:
+		fixStepIndicator(n);
+	}
+
+	function nextPrev(n) {
+		// This function will figure out which tab to display
+		var x = document.getElementsByClassName("tab");
+		// Exit the function if any field in the current tab is invalid:
+		if (n == 1 && !validateForm(currentTab)) return false;
+		// Hide the current tab:
+		x[currentTab].style.display = "none";
+		// Increase or decrease the current tab by 1:
+		currentTab = currentTab + n;
+		// if you have reached the end of the form...
+		if (currentTab >= x.length) {
+			// ... the form gets submitted:
+			elem = document.getElementById("nextBtn");
+			elem.parentNode.removeChild(elem);
+			elem = document.getElementById("prevBtn");
+			elem.parentNode.removeChild(elem);
+			book();
+			return false;
+		}
+		// Otherwise, display the correct tab:
+		showTab(currentTab);
+	}
+
+	function validateForm(n) {
+		// This function deals with validation of the form fields
+		var valid = true;
+		if (n == 0) {
+			if (lastclickedplace == " ") {
+				valid = false;
+			}
+		}
+
+		return valid; // return the valid status
+	}
+
+	function fixStepIndicator(n) {
+		// This function removes the "active" class of all steps...
+		var i,
+			x = document.getElementsByClassName("step");
+		for (i = 0; i < x.length; i++) {
+			x[i].className = x[i].className.replace(" active", "");
+		}
+		//... and adds the "active" class on the current step:
+		x[n].className += " active";
+	}
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAH3FQG8YcgP3NbuRN3EATXq1NXzQ7m7j8&callback=initMap" async
+	defer></script>
+<script>
+	function myFunction() {
+		var x = document.getElementById("myTopnav");
+		if (x.className === "topnav") {
+			x.className += " responsive";
+		} else {
+			x.className = "topnav";
+		}
+	}
+</script>
+<script>
+	function logOut() {
+		sessionStorage.removeItem("adminEmailStorage");
+		sessionStorage.removeItem("adminNameStorage");
+		sessionStorage.removeItem("adminDOBStorage");
+		sessionStorage.removeItem("adminMobileStorage");
+		sessionStorage.removeItem("adminAddressStorage");
+		sessionStorage.removeItem("adminCityStorage");
+		sessionStorage.removeItem("adminZIPStorage");
+		sessionStorage.removeItem("adminGenderStorage");
+		sessionStorage.removeItem("adminPasswordStorage");
+		window.location.reload();
+	}
+</script>
+
+</html>

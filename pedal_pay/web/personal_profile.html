@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <LINK REL="StyleSheet" HREF="css/style.css" TYPE="text/css" />
+  <LINK REL="StyleSheet" HREF="css/iconic/css/iconmonstr-iconic-font.min.css" TYPE="text/css" />
+  <LINK REL="icon" type="image/png" href="css/Images/favicon.png" />
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <title>PedalPay</title>
+</head>
+
+<body onload="checkDetails();">
+  <div class="topnav" id="myTopnav">
+    <a href="index.html" class="logo">PedalPay</a>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="products.html">Products</a>
+    <a href="contact.html">Contact</a>
+    <a href="#" id="login3" class="btn btn-primary modal-open-links" data-toggle="modal" data-modal-show="one"
+      data-target="#myModal">Login</a>
+    <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+
+  </div>
+
+  <div id="profileContent">
+    <div id="profileWrapper">
+      <div class="header">
+        <div class="headerText">
+          <h1>Profile</h1>
+        </div>
+      </div>
+      <div id="profileNav">
+        <a href="bookingsprofile.html" class="tab">Bookings</a>
+        <a href="healthprofile.html" class="tab">Health</a>
+        <a href="personalprofile.html" class="tab" id="activepersonal">Your info</a>
+      </div>
+      <form id="updateDetailsForm" method="post"
+        action="http://www.matthewfrankland.co.uk/pedalPay/userFunctions/updateDetails.php">
+        <div id="personalProfile" class="profile">
+          <div id="profilePicture"></div>
+          <p>
+            This is your information. Please ensure it's accurate
+            and should any of it be outdated, you can change it by simply
+            clicking on them and hitting submit when you're done.
+          </p>
+          <label>Name:</label><input type="text" name="name" placeholder="" />
+          <label>Date of birth:</label><input type="text" name="dob" placeholder="" />
+          <label>Address:</label><input type="text" name="addressOne" placeholder="" />
+          <label>City:</label><input type="text" name="city" placeholder="" />
+          <label>Post code:</label><input type="text" name="zip" placeholder="" />
+          <label>Telephone:</label><input type="text" name="mobile" placeholder="" />
+          <div class="btnHolder">
+            <input type="submit" value="Submit" />
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function checkDetails() {
+      if (sessionStorage.getItem("adminEmailStorage") != null) {
+        document.getElementsByName('name')[0].placeholder = sessionStorage.getItem("adminNameStorage");
+        document.getElementsByName('dob')[0].placeholder = sessionStorage.getItem("adminDOBStorage");
+        document.getElementsByName('addressOne')[0].placeholder = sessionStorage.getItem("adminAddressStorage");
+        document.getElementsByName('city')[0].placeholder = sessionStorage.getItem("adminCityStorage");
+        document.getElementsByName('zip')[0].placeholder = sessionStorage.getItem("adminZIPStorage");
+        document.getElementsByName('mobile')[0].placeholder = sessionStorage.getItem("adminMobileStorage");
+        var elem = document.getElementById("login3");
+        var indexOfEmail = sessionStorage
+          .getItem("adminEmailStorage")
+          .indexOf("@");
+        var username = sessionStorage
+          .getItem("adminEmailStorage")
+          .substring(0, indexOfEmail);
+        //change below for drop down
+        elem.outerHTML =
+          "<div class='dropdown'><button class='dropbtn'>" + username + " <i class='fa fa-caret-down'></i></button><div class='dropdown-content'><a href='personalprofile.html'>Your info</a><a href='bookingsprofile.html'>Your bookings</a><a href='healthprofile.html'>Your health</a><a href='leaderboard.html'>Leaderboard</a><a href='booking.html'>Book now</a><a href='reviews.html'>Leave a review</a><a href='javascript:logOut();'>Logout</a></div>";
+        //change above for drop down
+      }
+    }
+  </script>
+  <script>
+    var userID = 0;
+    $(function () {
+      $('#updateDetailsForm').on('submit', function (e) {
+        $.ajax({
+          type: 'post',
+          url: 'http://www.matthewfrankland.co.uk/pedalPay/userFunctions/updateDetails.php',
+          data: $('#updateDetailsForm').serialize() + '&oldEmail=' + sessionStorage.getItem('adminEmailStorage') + '&newEmail=' + '&password=' + sessionStorage.getItem('adminPasswordStorage') + '&addressTwo=',
+          success: function (response) {
+            var message = jQuery.parseJSON(response);
+            if (message.message == "User Update Successful") {
+              //alert(document.getElementsByName('name').value);
+              if (document.getElementsByName('name')[0].value.trim() != '') {
+                sessionStorage.setItem("adminNameStorage", document.getElementsByName('name')[0].value);
+              }
+              if (document.getElementsByName('dob')[0].value.trim() != '') {
+                sessionStorage.setItem("adminDOBStorage", document.getElementsByName('dob')[0].value);
+              }
+              if (document.getElementsByName('mobile')[0].value.trim() != '') {
+                sessionStorage.setItem("adminMobileStorage", document.getElementsByName('mobile')[0].value);
+              }
+              if (document.getElementsByName('addressOne')[0].value.trim() != '') {
+                sessionStorage.setItem("adminAddressStorage", document.getElementsByName('addressOne')[0].value);
+              }
+              if (document.getElementsByName('city')[0].value.trim() != '') {
+                sessionStorage.setItem("adminCityStorage", document.getElementsByName('city')[0].value);
+              }
+              if (document.getElementsByName('zip')[0].value.trim() != '') {
+                sessionStorage.setItem("adminZIPStorage", document.getElementsByName('zip')[0].value);
+              }
+              var elem = document.getElementById("personalProfile");
+              elem.innerHTML = "Your details have been successfuly updated. <br><br><p><a href=\"personalprofile.html\">Go back</a> </p>"
+              //getUserID();
+              //updatePhoto();
+            } else {
+              alert("Something happened, your details have not been updated ");
+            }
+          }, error: function (response) {
+
+            //if fails   
+            alert("Something went wrong!");
+          }
+        });
+        e.preventDefault();
+      });
+    });
+  </script>
+  <script>
+   /* function getUserID() {
+          $.ajax({
+            type: "post",
+            url:
+              "http://www.matthewfrankland.co.uk/pedalPay/userFunctions/userID.php",
+            data: '&email=' + sessionStorage.getItem('adminEmailStorage') + '&password=' + sessionStorage.getItem('adminPasswordStorage'),
+            success: function (response) {
+              var message = jQuery.parseJSON(response);
+              userID = message.message;
+
+            },
+            error: function () {
+              //if fails
+              alert("The request failed");
+            }
+          });
+    }/*
+  </script>
+  <script>
+    /*function updatePhoto() {
+          $.ajax({
+            type: "post",
+            url:
+              "http://www.matthewfrankland.co.uk/pedalPay/profilePictures/" + userID + ".jpg",
+            data: $("#updateDetailsForm").serialize(),
+            success: function (response) {
+              var message = jQuery.parseJSON(response);
+              alert(response);
+            },
+            error: function () {
+              //if fails
+              alert("The request failed");
+            }
+          });
+    }*/
+  </script>
+  <div id="footerContent">
+    <div id="footleft">
+      <b>PedalPay</b>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="products.html">Products</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div id="footcent">
+      <b>Information</b>
+      <a href="http://www.cycling-edinburgh.org.uk/bike-paths.htm">Safe Cycle Routes</a>
+      <a href="https://www.donkey.bike/uk-cycling-rules/">Bike Laws UK</a>
+      <a href="https://www.cyclingweekly.com/news/product-news/fix-a-puncture-142674">Fixing a Flat</a>
+      <a href="https://www.wikihow.com/Fix-a-Slipped-Bike-Chain">Fixing a Slipped Chain</a>
+    </div>
+    <div id="footcontact">
+      <b>Find us</b>
+      <p>G37 Earl Mountbatten,</p>
+      <p>Heriot Watt University,</p>
+      <p>Edinburgh,</p>
+      <p>EH144AS</p>
+    </div>
+    <div id="footright">
+      <div id="socials">
+        <a href="https://www.facebook.com/PedalPayLMT/" class="icon"><i class="im im-facebook"></i></a>
+        <a href="https://twitter.com/PayPedal" class="icon"><i class="im im-twitter"></i></a>
+        <a href="https://www.instagram.com/pedalpayuk/" class="icon">
+          <i class="im im-instagram"></i></a>
+        <a href="mailto:pedalpaylmt@gmail.com" targer="_top" class="icon"><i class="im im-mail"></i></a>
+      </div>
+      <a href="terms.html">Terms</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="sitemap.html">Site map</a>
+    </div>
+    <div id="logo">
+      <h1>PedalPay</h1>
+      <p>©</p>
+    </div>
+    <div id="footbot">
+      <div id="socialsCenter">
+        <a href="https://www.facebook.com/PedalPayLMT/" class="icon"><i class="im im-facebook"></i></a>
+        <a href="https://twitter.com/PayPedal" class="icon"><i class="im im-twitter"></i></a>
+        <a href="https://www.instagram.com/pedalpayuk/" class="icon">
+          <i class="im im-instagram"></i></a>
+        <a href="mailto:pedalpaylmt@gmail.com" targer="_top" class="icon"><i class="im im-mail"></i></a>
+      </div>
+      <a href="terms.html">Terms</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="sitemap.html">Site map</a>
+    </div>
+  </div>
+  <script>
+    function myFunction() {
+      var x = document.getElementById("myTopnav");
+      if (x.className === "topnav") {
+        x.className += " responsive";
+      } else {
+        x.className = "topnav";
+      }
+    }
+  </script>
+  <script>
+    function logOut() {
+      sessionStorage.removeItem("adminEmailStorage");
+      sessionStorage.removeItem("adminNameStorage");
+      sessionStorage.removeItem("adminDOBStorage");
+      sessionStorage.removeItem("adminMobileStorage");
+      sessionStorage.removeItem("adminAddressStorage");
+      sessionStorage.removeItem("adminCityStorage");
+      sessionStorage.removeItem("adminZIPStorage");
+      sessionStorage.removeItem("adminGenderStorage");
+      sessionStorage.removeItem("adminPasswordStorage");
+      window.location.reload();
+    }
+  </script>
+  <script>
+    $(function () {
+      $("#loginForm").on("submit", function (e) {
+        var email = document.forms["loginForm"]["email"].value;
+        var password = document.forms["loginForm"]["password"].value;
+        if (email.match(/\S+@\S+\.\S+/) && password.match(/^.{6,}$/)) {
+          $.ajax({
+            type: "post",
+            url: "http://www.matthewfrankland.co.uk/pedalPay/login/login.php",
+            data: $("#loginForm").serialize(),
+            success: function (response) {
+              $("#loginError").html("");
+              $("#loginSuccess").html("");
+              var message = jQuery.parseJSON(response);
+              if (message.error == true) {
+                $("#loginError").html("<p>" + message.message + "</p>");
+              } else {
+                sessionStorage.setItem("adminEmailStorage", message.message);
+                sessionStorage.setItem("adminNameStorage", message.userDetails[0].name);
+                sessionStorage.setItem("adminDOBStorage", message.userDetails[0].dob);
+                sessionStorage.setItem("adminMobileStorage", message.userDetails[0].mobile);
+                sessionStorage.setItem("adminAddressStorage", message.userDetails[0].addressone);
+                sessionStorage.setItem("adminCityStorage", message.userDetails[0].city);
+                sessionStorage.setItem("adminZIPStorage", message.userDetails[0].zip);
+                sessionStorage.setItem("adminGenderStorage", message.userDetails[0].gender);
+                sessionStorage.setItem(
+                  "adminPasswordStorage",
+                  document.getElementById("password").value
+                );
+                var elem = document.getElementById("login3");
+                var indexOfEmail = sessionStorage
+                  .getItem("adminEmailStorage")
+                  .indexOf("@");
+                var username = sessionStorage
+                  .getItem("adminEmailStorage")
+                  .substring(0, indexOfEmail);
+                elem.outerHTML = "<div class='dropdown'><button class='dropbtn'>" + username + " <i class='fa fa-caret-down'></i></button><div class='dropdown-content'><a href='personalprofile.html'>Your info</a><a href='bookingsprofile.html'>Your bookings</a><a href='healthprofile.html'>Your health</a><a href=''javascript:logOut();''>Logout</a></div>";
+              }
+            },
+            error: function () {
+              //if fails
+              alert("Something went wrong!");
+            }
+          });
+        }
+        e.preventDefault();
+      });
+    });
+  </script>
+
+  <script>
+    $(function () {
+      $("#registerForm").on("submit", function (e) {
+        var email = document.forms["registerForm"]["email"].value;
+        var password = document.forms["registerForm"]["password"].value;
+        var name = document.forms["registerForm"]["name"].value;
+        var dob = document.forms["registerForm"]["dob"].value;
+        var addressone = document.forms["registerForm"]["addressone"].value;
+        var city = document.forms["registerForm"]["city"].value;
+        var zip = document.forms["registerForm"]["zip"].value;
+
+        if (
+          email.match(/\S+@\S+\.\S+/) &&
+          password.match(/^.{6,}$/) &&
+          name.match(/^.{2,}$/) &&
+          dob.match(
+            /(0[1-9]|[12][0-9]|3[01])[/](0[1-9]|1[012])[/]([1-9][0-9][0-9][0-9]|0[1-9][0-9][0-9]|00[1-9][0-9]|000[1-9])/
+          ) &&
+          addressone.match(/^.{2,}$/) &&
+          city.match(/^.{2,}$/) &&
+          zip.match(
+            /^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$/
+          )
+        ) {
+          $.ajax({
+            type: "post",
+            url:
+              "http://www.matthewfrankland.co.uk/pedalPay/login/register.php",
+            data: $("#registerForm").serialize(),
+            success: function (response) {
+              $("#registerErrors").html("");
+              $("#registerSuccess").html("");
+              var message = jQuery.parseJSON(response);
+              if (message.error == true) {
+                $("#registerErrors").html("<p>" + message.message + "</p>");
+              } else {
+                sessionStorage.setItem("adminEmailStorage", document.getElementById("email2").value);
+                sessionStorage.setItem("adminNameStorage", document.getElementById("name").value);
+                sessionStorage.setItem("adminDOBStorage", document.getElementById("dob").value);
+                sessionStorage.setItem("adminMobileStorage", document.getElementById("mobile").value);
+                sessionStorage.setItem("adminAddressStorage", document.getElementById("addressone").value);
+                sessionStorage.setItem("adminCityStorage", document.getElementById("city").value);
+                sessionStorage.setItem("adminZIPStorage", document.getElementById("zip").value);
+                sessionStorage.setItem("adminGenderStorage", document.getElementById("gender").value);
+                sessionStorage.setItem(
+                  "adminPasswordStorage",
+                  document.getElementById("password").value
+                );
+                var elem = document.getElementById("login3");
+                var indexOfEmail = sessionStorage
+                  .getItem("adminEmailStorage")
+                  .indexOf("@");
+                var username = sessionStorage
+                  .getItem("adminEmailStorage")
+                  .substring(0, indexOfEmail);
+                elem.outerHTML = "<div class='dropdown'><button class='dropbtn'>" + username + " <i class='fa fa-caret-down'></i></button><div class='dropdown-content'><a href='personalprofile.html'>Your info</a><a href='bookingsprofile.html'>Your bookings</a><a href='healthprofile.html'>Your health</a><a href='javascript:logOut();'>Logout</a></div>";
+              }
+            },
+            error: function () {
+              //if fails
+              alert("The request failed");
+            }
+          });
+        }
+        e.preventDefault();
+      });
+    });
+  </script>
+
+  <script>
+    $(function () {
+      $("#resetPassForm").on("submit", function (e) {
+        var email = document.forms["resetPassForm"]["email"].value;
+        if (email.match(/\S+@\S+\.\S+/)) {
+          $.ajax({
+            type: "post",
+            url:
+              "http://www.matthewfrankland.co.uk/pedalPay/resetPass/emailReset.php",
+            data: $("#resetPassForm").serialize(),
+            success: function (response) {
+              $("#resetErrors").html("");
+              var message = jQuery.parseJSON(response);
+              $("#resetErrors").html("<p>" + message.message + "</p>");
+            },
+            error: function () {
+              //if fails
+              alert("The request failed");
+            }
+          });
+        }
+        e.preventDefault();
+      });
+    });
+  </script>
+  <script>
+    function myFunction() {
+      var x = document.getElementById("myTopnav");
+      if (x.className === "topnav") {
+        x.className += " responsive";
+      } else {
+        x.className = "topnav";
+      }
+    }
+  </script>
+</body>
+
+</html>

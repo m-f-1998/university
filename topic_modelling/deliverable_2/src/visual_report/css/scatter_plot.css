@@ -1,0 +1,29 @@
+.selectionclass1{
+  color: #1B2BEA;
+  fill: #1B2BEA;
+}
+.selectionclass2{
+  color: #B20D30;
+  fill: #B20D30;
+}
+.selectionclass3{
+  color: #3F784C;
+  fill: #3F784C;
+}
+.highlight{
+  color: #332415;
+  fill: #332415;
+}
+.model_div h1{
+  -webkit-text-stroke: 1px rgb(55,55,55); /* width and color */
+  font-size: 25px;
+}
+circle{
+  fill: rgba(242,158,76,0.6);
+  stroke: #0F1010;
+  stroke-width: 1;
+}
+circle.selected{
+  stroke: rgba(65,97,101,0.35);
+  stroke-width: 10;
+}

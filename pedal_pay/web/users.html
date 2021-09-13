@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <LINK REL="StyleSheet" HREF="css/style.css" TYPE="text/css" />
+  <LINK REL="StyleSheet" HREF="css/iconic/css/iconmonstr-iconic-font.min.css" TYPE="text/css" />
+  <LINK REL="icon" type="image/png" href="css/Images/favicon.png" />
+  <!-- Load c3.css -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.css">
+  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.js"></script>
+  <title>PedalPay</title>
+</head>
+
+<body onload="checkDetails();">
+  <div class="topnav" id="myTopnav">
+    <a href="index.html" class="logo">PedalPay</a>
+    <a href="bikes.html">Bikes</a>
+    <a href="users.html">Users</a>
+    <a href="heatmap.html">Heat map</a>
+    <a href="report.html">Report</a>
+    <a href="#" id="login3" class="btn btn-primary modal-open-links" data-toggle="modal" data-modal-show="one"
+      data-target="#myModal">Login</a>
+    <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+
+  </div>
+
+  <!-- Login Modal -->
+  <div id="loginModal" class="modal">
+    <!-- Modal content -->
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="close" data-dismiss="modal">&times;</span>
+        <h1>PedalPay</h1>
+      </div>
+      <div class="modal-body">
+        <div id="one" class="hide_first">
+          <div id="form">
+            <form id="loginForm" method="post" action="http://www.matthewfrankland.co.uk/pedalPay/login/login.php">
+              <div class="loginError" id="loginError"></div>
+              <div class="loginSuccess" id="loginSuccess"></div>
+              <div class="inputs">
+                <h2>Admin Login</h2>
+                <label> Email </label>
+                <input type="text" name="email" placeholder="Your email.." />
+              </div>
+
+              <div class="inputs">
+                <label> Password </label>
+                <input type="password" name="password" id="password" placeholder="Your password.." />
+              </div>
+
+              <div class="inputs">
+                <div id="buttonholder">
+                  <button type="submit" name="login" class="btn">
+                    Login
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Login script for nav-->
+  <script>
+    // Get the modal
+    var modal = document.getElementById("loginModal");
+    // Get the button that opens the modal
+    var btn = document.getElementById("login3");
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+    // When the user clicks the button, open the modal
+    btn.onclick = function () {
+      modal.style.display = "block";
+    };
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+      modal.style.display = "none";
+    };
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    };
+  </script>
+  <script>
+    function myFunction() {
+      var x = document.getElementById("myTopnav");
+      if (x.className === "topnav") {
+        x.className += " responsive";
+      } else {
+        x.className = "topnav";
+      }
+    }
+  </script>
+  <script>
+    $(".modal-open-links").on("click", function (e) {
+      //Set display:none for all first
+      $(".hide_first").css("display", "none");
+      content_to_show = $(this).attr("data-modal-show");
+      //Show the one we clicked
+      $("#" + content_to_show).css("display", "block");
+    });
+  </script>
+
+  <div id="adminContent">
+    <div id="booking"></div>
+    <div id="userBookings">
+      <p>Enter a user ID to find all the bookings for that user:</p>
+      <form id="userBookingsForm" method="post"
+        action="http://www.matthewfrankland.co.uk/pedalPay/adminFunctions/allUserBookings.php">
+        <label> User ID for bookings</label>
+        <input type="text" id="userID" />
+        <br />
+        <div id="buttonholder">
+          <button type="submit" name="userBookingsBtn" class="btn">
+            Generate all user bookings
+          </button>
+        </div>
+      </form>
+      <div id="userBookingsDiv"></div>
+    </div>
+
+    <div id="graphsBox">
+      <div id="chart"></div>
+      <div id="chartsFormCollection">
+        <p>Click a button to generate a graph:</p>
+        <form id="chartsForm" method="post">
+          <div id="buttonholder">
+            <button id="bookingLocationBtn" onclick="event.preventDefault(); bookingLocationFunction()" class="btn">
+              Generate a graph for booking locations
+            </button>
+            <button id="bookingLengthBtn" onclick="event.preventDefault(); bookingLength()" class="btn">
+              Generate a graph for the length of the bookings
+            </button>
+          </div>
+          <div id="chartMessages"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $(function () {
+      $("#registerForm").on("submit", function (e) {
+        $.ajax({
+          type: "post",
+          url:
+            "http://www.matthewfrankland.co.uk/pedalPay/adminFunctions/adminRegister.php",
+          data: $("#registerForm").serialize(),
+          success: function (response) {
+            var message = jQuery.parseJSON(response);
+            alert(message.message);
+          },
+          error: function (message, error) {
+            //if fails
+            alert("The request failed");
+          }
+        });
+        e.preventDefault();
+      });
+    });
+  </script>
+
+  <script>
+    function checkDetails() {
+      if (sessionStorage.getItem("adminEmailStorage") != null) {
+        document.getElementById("loginModal").style.display = "none";
+        var elem = document.getElementById("login3");
+        elem.parentNode.removeChild(elem);
+      }
+    }
+  </script>
+
+  <script>
+    $(function () {
+      $("#userBookingsForm").on("submit", function (e) {
+        if (sessionStorage.getItem("adminEmailStorage") == null) {
+          alert("LOGIN TO ACCESS THIS DATA!");
+        } else {
+          $.ajax({
+            type: "post",
+            url:
+              "http://www.matthewfrankland.co.uk/pedalPay/adminFunctions/allUserBookings.php",
+            data:
+              "&email=" +
+              sessionStorage.getItem("adminEmailStorage") +
+              "&password=" +
+              sessionStorage.getItem("adminPasswordStorage"),
+            success: function (response) {
+              var jsonData = JSON.parse(response);
+              document.getElementById("userBookingsDiv").innerHTML = "hi";
+              //$("#userBookingsDiv").empty();
+              var j = 0;
+              if (typeof jsonData.message === "string") {
+                $("#userBookingsDiv").append("Invalid email/password");
+              } else {
+                for (var i = 0; i < jsonData.message.length; i++) {
+                  var counter = jsonData.message[i];
+                  var userIDValue = document.getElementById("userID").value;
+
+                  if (userIDValue == counter.pid) {
+                    if (j == 0) {
+                      $("#userBookingsDiv").append(
+                        "<p>The following are the booking details for user " +
+                        userIDValue +
+                        ":</p>"
+                      );
+                    }
+                    ++j;
+                    $("#userBookingsDiv").append(
+                      "<p>" +
+                      j +
+                      ".Booking for " +
+                      counter.bookstart +
+                      " and returned by " +
+                      counter.bookend +
+                      "</p>"
+                    );
+                  }
+                }
+                if (j == 0) {
+                  $("#userBookingsDiv").append(
+                    "<p>There are no details for this user!</p>"
+                  );
+                }
+              }
+            }
+          });
+        }
+        e.preventDefault();
+      });
+    });
+  </script>
+
+  <script>
+    var places;
+    function bookingsbylocation(piedata) {
+      var datacount = {};
+      var data = piedata.map(function (value, index) {
+        return value["lid"];
+      });
+      var max = 0;
+      data.forEach(function (value, index) {
+        if (value in datacount) {
+          datacount[value] += 1;
+        } else {
+          datacount[value] = 1;
+        }
+        if (value > max) {
+          max = value;
+        }
+      });
+      var i;
+      for (i = 1; i <= max; i++) {
+        if (!datacount.hasOwnProperty(i)) {
+          datacount[i] = 0;
+          datacount = JSON.parse(
+            JSON.stringify(datacount)
+              .split('"' + i + '":')
+              .join('"' + places[i - 1].hub + '":')
+          );
+        } else {
+          datacount = JSON.parse(
+            JSON.stringify(datacount)
+              .split('"' + i + '":')
+              .join('"' + places[i - 1].hub + '":')
+          );
+        }
+      }
+      setTimeout(function () {
+        chart = c3.generate({
+          bindto: "#chart",
+          data: {
+            json: datacount,
+            type: "donut"
+          },
+          donut: {
+            title: "Booking by location"
+          }
+        });
+      });
+    }
+    function bookinglength(piedata) {
+      var datacount = {};
+      var data = piedata.map(function (value, index) {
+        return Math.ceil(
+          Math.abs(
+            new Date(value["bookend"]).getTime() -
+            new Date(value["bookstart"]).getTime()
+          ) /
+          (1000 * 3600)
+        );
+      });
+      data.forEach(function (value, index) {
+        if (value in datacount) {
+          datacount[value] += 1;
+        } else {
+          datacount[value] = 1;
+        }
+      });
+      setTimeout(function () {
+        chart = c3.generate({
+          bindto: "#chart",
+          data: {
+            json: datacount,
+            type: "donut"
+          },
+          donut: {
+            title: "Booking lengths in hours"
+          }
+        });
+      });
+    }
+  </script>
+
+  <script>
+    $(function bookingLocationFunction() {
+      $("#bookingLocationBtn").on("click", function (e) {
+        if (sessionStorage.getItem("adminEmailStorage") == null) {
+          alert("LOGIN TO ACCESS THIS DATA!");
+        } else {
+          $.ajax({
+            type: "post",
+            url:
+              "http://www.matthewfrankland.co.uk/pedalPay/adminFunctions/allUserBookings.php",
+            data:
+              "&email=" +
+              sessionStorage.getItem("adminEmailStorage") +
+              "&password=" +
+              sessionStorage.getItem("adminPasswordStorage"),
+            success: function (response) {
+              $("#chartMessages").empty();
+              var jsonData = JSON.parse(response);
+              if (typeof jsonData.message === "string") {
+                document.getElementById("chartMessages").innerHTML =
+                  "Please enter a valid email/password";
+              } else {
+                $.ajax({
+                  type: "post",
+                  url:
+                    "http://www.matthewfrankland.co.uk/pedalPay/userFunctions/locations.php",
+                  data:
+                    "&email=" +
+                    sessionStorage.getItem("adminEmailStorage") +
+                    "&password=" +
+                    sessionStorage.getItem("adminPasswordStorage"),
+                  success: function (response) {
+                    var jsonData = JSON.parse(response);
+                    places = jsonData.message;
+                  }
+                });
+              }
+              bookingsbylocation(jsonData.message);
+            }
+          });
+        }
+      });
+    });
+  </script>
+
+  <script>
+    $(function bookingLength() {
+      $("#bookingLengthBtn").on("click", function (e) {
+        if (sessionStorage.getItem("adminEmailStorage") == null) {
+          alert("LOGIN TO ACCESS THIS DATA!");
+        } else {
+          $.ajax({
+            type: "post",
+            url:
+              "http://www.matthewfrankland.co.uk/pedalPay/adminFunctions/allUserBookings.php",
+            data:
+              "&email=" +
+              sessionStorage.getItem("adminEmailStorage") +
+              "&password=" +
+              sessionStorage.getItem("adminPasswordStorage"),
+            success: function (response) {
+              $("#chartMessages").empty();
+              var jsonData = JSON.parse(response);
+              if (typeof jsonData.message === "string") {
+                document.getElementById("chartMessages").innerHTML =
+                  "Please enter a valid email/password";
+              } else {
+                bookinglength(jsonData.message);
+              }
+            }
+          });
+        }
+      });
+    });
+  </script>
+
+  <script>
+    $(function () {
+      $("#loginForm").on("submit", function (e) {
+        $.ajax({
+          type: "post",
+          url: "http://www.matthewfrankland.co.uk/pedalPay/login/login.php",
+          data: $("#loginForm").serialize(),
+          success: function (response) {
+            $("#loginError").html("");
+            $("#loginSuccess").html("");
+            var message = jQuery.parseJSON(response);
+            if (message.error == true) {
+              $("#loginError").html("<p>" + message.message + "</p>");
+            } else if (message.admin == false) {
+              $("#loginError").html("You are not an admin!");
+            } else {
+              sessionStorage.setItem("adminEmailStorage", message.message);
+              sessionStorage.setItem(
+                "adminPasswordStorage",
+                document.getElementById("password").value
+              );
+              document.getElementById("loginModal").style.display = "none";
+              var elem = document.getElementById("login3");
+              elem.parentNode.removeChild(elem);
+              $("#loginError").html(
+                "<p> Welcome, " + message.message + "</p>"
+              );
+            }
+          },
+          error: function () {
+            //if fails
+            $("#loginError").html("");
+            $("#loginError").html("Something went wrong!");
+          }
+        });
+        e.preventDefault();
+      });
+    });
+  </script>
+</body>
+
+</html>

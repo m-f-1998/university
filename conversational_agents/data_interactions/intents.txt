@@ -1,0 +1,7 @@
+intents:
+  - book_room
+  - find_person
+  - future_events
+  - suggest_edit
+  - user check in
+  - cancel_room

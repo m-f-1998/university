@@ -1,0 +1,8 @@
+{
+  "require" : {
+    "stripe/stripe-php": "3.*"
+  },
+  "require-dev": {
+    "heroku/heroku-buildpack-php": "*"
+  }
+}

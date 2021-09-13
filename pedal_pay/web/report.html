@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <LINK REL="StyleSheet" HREF="css/style.css" TYPE="text/css" />
+  <LINK REL="StyleSheet" HREF="css/iconic/css/iconmonstr-iconic-font.min.css" TYPE="text/css" />
+  <LINK REL="icon" type="image/png" href="css/Images/favicon.png" />
+  <title>PedalPay</title>
+</head>
+
+<body onload="checkDetails();">
+  <div class="topnav" id="myTopnav">
+    <a href="index.html" class="logo">PedalPay</a>
+    <a href="bikes.html">Bikes</a>
+    <a href="users.html">Users</a>
+    <a href="heatmap.html">Heat map</a>
+    <a href="report.html">Report</a>
+    <a href="#" id="login3" class="btn btn-primary modal-open-links" data-toggle="modal" data-modal-show="one"
+      data-target="#myModal">Login</a>
+    <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+
+  </div>
+
+  <!-- Login Modal -->
+  <div id="loginModal" class="modal">
+    <!-- Modal content -->
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="close" data-dismiss="modal">&times;</span>
+        <h1>PedalPay</h1>
+      </div>
+      <div class="modal-body">
+        <div id="one" class="hide_first">
+          <div id=form>
+            <form id="loginForm" method="post" action="http://www.matthewfrankland.co.uk/pedalPay/login/login.php">
+              <div class="loginError" id="loginError"></div>
+              <div class="loginSuccess" id="loginSuccess"></div>
+              <div class="inputs">
+                <h2>Admin Login</h2>
+                <label> Email </label>
+                <br />
+                <input type="text" name="email" placeholder="Your email.." />
+              </div>
+
+              <div class="inputs">
+                <label> Password </label> <input type="password" name="password" id="password"
+                  placeholder="Your password.." />
+              </div>
+
+              <div class="inputs">
+                <div id="buttonholder">
+                  <button type="submit" name="login" class="btn">Login</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <script>
+    function myFunction() {
+      var x = document.getElementById("myTopnav");
+      if (x.className === "topnav") {
+        x.className += " responsive";
+      } else {
+        x.className = "topnav";
+      }
+    }
+  </script>
+  <!--Login script for nav-->
+  <script>
+    // Get the modal
+    var modal = document.getElementById("loginModal");
+    // Get the button that opens the modal
+    var btn = document.getElementById("login3");
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+    // When the user clicks the button, open the modal
+    btn.onclick = function () {
+      modal.style.display = "block";
+    };
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+      modal.style.display = "none";
+    };
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    };
+  </script>
+
+
+  <script>
+    $(".modal-open-links").on("click", function (e) {
+      //Set display:none for all first
+      $(".hide_first").css("display", "none");
+      content_to_show = $(this).attr("data-modal-show");
+      //Show the one we clicked
+      $("#" + content_to_show).css("display", "block");
+    });
+  </script>
+
+  <div id="adminContent">
+
+    <div id="RegisteredUsersReport">
+      <p>Click on the button below to generate a report that contains information about our users.</p>
+      <form action="javascript:userDetails()" method="post" id="userDetailsForm">
+        <div id="buttonholder">
+          <button type="submit" name="userDetailsGenerate">Generate User Report</button>
+        </div>
+      </form>
+    </div>
+
+    <div id="UserBookingsReport">
+      <p>Click on the button below to generate a report that contains all of the books that users have made.</p>
+      <form action="javascript:userBookings()" method="post" id="userBookingsForm">
+        <div id="buttonholder">
+          <button type="submit" name="userBookingsGenerate">Generate User Bookings Report</button>
+        </div>
+      </form>
+
+      <div id="userBookingsReportDiv" class="hidden"></div>
+    </div>
+
+  </div>
+
+  <script>
+    $(function userDetails() {
+      $('#userDetailsForm').on('submit', function (e) {
+        if (sessionStorage.getItem('adminEmailStorage') == null) {
+          alert("LOG IN TO ACCESS DATA");
+        } else {
+          $.ajax({
+            type: 'post',
+            url: 'http://www.matthewfrankland.co.uk/pedalPay/adminFunctions/userDetails.php',
+            data: '&email=' + sessionStorage.getItem('adminEmailStorage') + '&password=' + sessionStorage.getItem('adminPasswordStorage'),
+            success: function (response) {
+              var message = jQuery.parseJSON(response);
+              var u18 = 0;
+              var u25 = 0;
+              var u35 = 0;
+              var u50 = 0;
+              var o50 = 0;
+              var total = 0;
+              var least = 0;
+              var most = 0;
+              var male = 0;
+              var female = 0;
+
+              for (var i = 0; i < message.message.length; i++) { //FIX THE i WHEN BAD DATA IS REMOVED
+                var counter = message.message[i];
+                var dob = counter.dob;
+                var year = Number(dob.substr(0, 4));
+                var month = Number(dob.substr(5, 2)) - 1;
+                var day = Number(dob.substr(8, 2));
+                var today = new Date();
+                var age = today.getFullYear() - year;
+                if (counter.gender == 'm') {
+                  male = male + 1;
+                } else {
+                  female = female + 1;
+                }
+
+                if (today.getMonth() < month || (today.getMonth() == month && today.getDate() < day)) {
+                  age = age - 1;
+                }
+                if (age < 18) {
+                  u18 = u18 + 1;
+                } else if (age < 25) {
+                  u25 = u25 + 1;
+                } else if (age < 35) {
+                  u35 = u35 + 1;
+                } else if (age < 50) {
+                  u50 = u50 + 1;
+                } else { o50 = o50 + 1; }
+                total = total + 1;
+              }
+              switch (Math.max(u18, u25, u35, u50, o50)) {
+                case u18:
+                  var most = "under 18's age group";
+                  break;
+                case u25:
+                  var most = "in the 18 to 25 year old age group";
+                  break;
+                case u35:
+                  var most = "in the 25 to 35 year old age group";
+                  break;
+                case u50:
+                  var most = "in the 35 to 50 year old age group";
+                  break;
+                case o50:
+                  var most = "in the over 50's age group";
+              }
+              switch (Math.min(u18, u25, u35, u50, o50)) {
+                case u18:
+                  var least = "under 18's age group";
+                  break;
+                case u25:
+                  var least = "in the 18 to 25 year old age group";
+                  break;
+                case u35:
+                  var least = "in the 25 to 35 year old age group";
+                  break;
+                case u50:
+                  var least = "in the 35 to 50 year old age group";
+                  break;
+                case o50:
+                  var least = "in the over 50's age group";
+              }
+              if (male > female) {
+                var majority = "male";
+              } else if (female > male) {
+                var majority = "female";
+              }
+              var doc = new jsPDF()
+              var header = 'Information on Users: ' + '\n';
+              var headerAge = 'Users by age: ' + '\n';
+              var ageText = doc.splitTextToSize("The majority of our users are " + most + " with a percentage of ~" + Math.round(Math.max(u18, u25, u35, u50, o50) / total * 100) + "%." + "\n"
+                + "The minority of our users are " + least + " with a percentage of ~" + Math.round(Math.min(u18, u25, u35, u50, o50) / total * 100) + "%." + "\n" + "\n"
+                + "There are " + u18 + " users in the under 18's age group." + "\n"
+                + "There are " + u25 + " users in the 18 to 25 year old age group." + "\n"
+                + "There are " + u35 + " users in the 25 to 35 year old age group." + "\n"
+                + "There are " + u50 + " users in the 35 to 50 year old age group." + "\n"
+                + "There are " + o50 + " users in the over 50's age group." + "\n", 180);
+              var headerSex = "Users by gender: ";
+              var sexText = doc.splitTextToSize(Math.round((male / total) * 100) + "% of our users are male and " + Math.round((female / total) * 100) + "% of our users are female. Meaning a majority of our users are " + majority + ".", 180);
+              doc.setFont("Times new roman");
+              doc.setFontSize(25);
+              doc.text(header, 20, 20)
+              doc.setFontSize(20);
+              doc.text(headerAge, 20, 30)
+              doc.setFontSize(15);
+              doc.text(ageText, 30, 40)
+              doc.setFontSize(20);
+              doc.text(headerSex, 20, 115)
+              doc.setFontSize(15);
+              doc.text(sexText, 30, 125);
+              doc.save('user report.pdf')
+              createPDF(text);
+
+            }, error: function (message, error) {
+              //if fails   
+              alert('The request failed');
+            }
+          });
+        }
+        e.preventDefault();
+      });
+    });
+  </script>
+  <script>
+    $(function () {
+      $('#userBookingsForm').on('submit', function (e) {
+        if (sessionStorage.getItem('adminEmailStorage') == null) {
+          alert("LOG IN TO ACCESS DATA");
+        } else {
+          $.ajax({
+            type: 'post',
+            url: 'http://www.matthewfrankland.co.uk/pedalPay/adminFunctions/allUserBookings.php',
+            data: '&email=' + sessionStorage.getItem('adminEmailStorage') + '&password=' + sessionStorage.getItem('adminPasswordStorage'),
+            success: function (response) {
+              var jsonData = JSON.parse(response);
+              var haymarket = 0;
+              var granton = 0;
+              var waverly = 0;
+              var sighthill = 0;
+              var leith = 0;
+              var morningside = 0;
+              var fortkinnard = 0;
+              var zoo = 0;
+              var holyrood = 0;
+              var liberton = 0;
+              var u18 = 0;
+              var u25 = 0;
+              var u35 = 0;
+              var u50 = 0;
+              var o50 = 0;
+              var leastage = 0;
+              var mostage = 0;
+              var total = 0;
+              $("#userBookingsReportDiv").empty();
+              $("#userBookingsReportDiv").append("Registered Bookings \n\n");
+              for (var i = 0; i < jsonData.message.length; i++) {
+                var counter = jsonData.message[i];
+                total = total + 1;
+
+                switch (counter.lid) {
+                  case '1':
+                    var hub = "Haymarket";
+                    haymarket++;
+                    break;
+                  case '2':
+                    var hub = "Granton";
+                    granton++;
+                    break;
+                  case '3':
+                    var hub = "Waverly";
+                    waverly++;
+                    break;
+                  case '4':
+                    var hub = "Sighthill";
+                    sighthill++;
+                    break;
+                  case '5':
+                    var hub = "Leith";
+                    leith++;
+                    break;
+                  case '6':
+                    var hub = "Morningside";
+                    morningside++;
+                    break;
+                  case '7':
+                    var hub = "Fort-Kinnard";
+                    fortkinnard++;
+                    break;
+                  case '8':
+                    var hub = "Edinburgh Zoo";
+                    zoo++;
+                    break;
+                  case '9':
+                    var hub = "Holyrood";
+                    holyrood++;
+                    break;
+                  case '10':
+                    var hub = "Liberton";
+                    liberton++;
+                }
+              }
+              switch (Math.max(haymarket, granton, waverly, sighthill, leith, morningside, fortkinnard, zoo, holyrood, liberton)) {
+                case haymarket:
+                  var most = "Haymarket";
+                  break;
+                case granton:
+                  var most = "Granton";
+                  break;
+                case waverly:
+                  var most = "Waverly";
+                  break;
+                case sighthill:
+                  var most = "Sighthill";
+                  break;
+                case leith:
+                  var most = "Leith";
+                  break;
+                case morningside:
+                  var most = "Morningside";
+                  break;
+                case fortkinnard:
+                  var most = "Fort-Kinnard";
+                  break;
+                case zoo:
+                  var most = "Edinburgh Zoo";
+                  break;
+                case holyrood:
+                  var most = "Holyrood";
+                  break;
+                case liberton:
+                  var most = "Liberton";
+              }
+              switch (Math.min(haymarket, granton, waverly, sighthill, leith, morningside, fortkinnard, zoo, holyrood, liberton)) {
+                case haymarket:
+                  var least = "Haymarket";
+                  break;
+                case granton:
+                  var least = "Granton";
+                  break;
+                case waverly:
+                  var least = "Waverly";
+                  break;
+                case sighthill:
+                  var least = "Sighthill";
+                  break;
+                case leith:
+                  var least = "Leith";
+                  break;
+                case morningside:
+                  var least = "Morningside";
+                  break;
+                case fortkinnard:
+                  var least = "Fort-Kinnard";
+                  break;
+                case zoo:
+                  var least = "Edinburgh Zoo";
+                  break;
+                case holyrood:
+                  var least = "Holyrood";
+                  break;
+                case liberton:
+                  var least = "Liberton";
+              }
+
+              var doc = new jsPDF()
+              var title = 'Information about bookings';
+              var headerLocation = 'Information by location';
+              var headerAge = 'Information by age';
+              var bookingInformation = 'There are ' + total + ' bookings throughout all locations'
+              var indepthInformation = doc.splitTextToSize('Haymarket has a booking rate of ' + Math.round((haymarket / total) * 100) + '%. \n' +
+                'Granton has a booking rate of ' + Math.round((granton / total) * 100) + '%. \n' +
+                'Waverly has a booking rate of ' + Math.round((waverly / total) * 100) + '%. \n' +
+                'Sighthill has a booking rate of ' + Math.round((sighthill / total) * 100) + '%. \n' +
+                'Morningside has a booking rate of ' + Math.round((morningside / total) * 100) + '%. \n' +
+                'Leith has a booking rate of ' + Math.round((leith / total) * 100) + '%. \n' +
+                'Fort-Kinnard has a booking rate of ' + Math.round((fortkinnard / total) * 100) + '%. \n' +
+                'Edinburgh zoo has a booking rate of ' + Math.round((zoo / total) * 100) + '%. \n' +
+                'Holyrood has a booking rate of ' + Math.round((holyrood / total) * 100) + '%. \n' +
+                'Liberton has a booking rate of ' + Math.round((liberton / total) * 100) + '%.', 180)
+              var hubSuggestion = doc.splitTextToSize('You may want to consider moving bikes from ' + least + ' to ' + most + ' to ensure ' + most + ' is not left without bikes. \n', 180);
+              //var mostAge = mostBookingAge + ' are the age group with the most bookings. \n';
+              //var leastAge = leastAge + ' are the age group with the least bookings.';
+              //var ageInformation = doc.splitTextToSize(mostAge + leastAge, 180);
+
+              doc.setFont("Times new roman")
+              doc.setFontSize(25)
+              doc.text(title, 10, 20)
+              doc.setFontSize(20)
+              doc.text(headerLocation, 20, 30)
+              doc.setFontSize(15)
+              doc.text(indepthInformation, 30, 40)
+              doc.text(hubSuggestion, 30, 105)
+              //doc.setFontSize(20)
+              //doc.text(headerAge, 20, 80)
+              //doc.setFontSize(15)
+              //doc.text(ageInformation, 30, 90)
+              doc.save('booking report.pdf')
+              createPDF(text);
+            }
+          });
+        }
+        e.preventDefault();
+      });
+    });
+  </script>
+
+  <script>
+    function checkDetails() {
+      if (sessionStorage.getItem('adminEmailStorage') != null) {
+        document.getElementById("loginModal").style.display = "none";
+        var elem = document.getElementById("login3");
+        elem.parentNode.removeChild(elem);
+      }
+    }
+  </script>
+
+  <script>
+    $(function () {
+      $('#loginForm').on('submit', function (e) {
+        $.ajax({
+          type: 'post',
+          url: 'http://www.matthewfrankland.co.uk/pedalPay/login/login.php',
+          data: $('#loginForm').serialize(),
+          success: function (response) {
+            $('#loginError').html("");
+            $('#loginSuccess').html("");
+            var message = jQuery.parseJSON(response);
+            if (message.error == true) {
+              $('#loginError').html("<p>" + message.message + "</p>");
+            } else if (message.admin == false) {
+              $('#loginError').html("You are not an admin!");
+            } else {
+              sessionStorage.setItem('adminEmailStorage', message.message);
+              sessionStorage.setItem('adminPasswordStorage', document.getElementById('password').value);
+              document.getElementById("loginModal").style.display = "none";
+              var elem = document.getElementById("login3");
+              elem.parentNode.removeChild(elem);
+              $('#loginError').html("<p> Welcome, " + message.message + "</p>");
+            }
+          }, error: function () {
+            //if fails   
+            $('#loginError').html("");
+            $('#loginError').html("Something went wrong!");
+          }
+        });
+        e.preventDefault();
+      });
+    });
+  </script>
+</body>
+
+</html>

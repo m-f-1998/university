@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">PedalPay</string>
+    <string name="action_settings">Settings</string>
+    <string name="forgot_password"><a href="http://www.google.com">Forgot Password?</a></string>
+    <string name="create_account"><a href="http://www.youtube.com">Don\'t Have An Account? Sign up</a></string>
+    <string name="google_maps_api_key"></string>
+    <string name="title_activity_a13">Sign in</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string-array name="bookLen">
+        <item>1 hour</item>
+        <item>2 hours</item>
+        <item>3 hours</item>
+        <item>4 hours</item>
+        <item>5 hours</item>
+        <item>6 hours</item>
+    </string-array>
+
+    <string-array name="bikeTypes">
+        <item>Road Bike</item>
+        <item>Mountain Bike</item>
+        <item>Tandem Bike</item>
+        <item>Hand Bike</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

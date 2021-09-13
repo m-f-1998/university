@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <LINK REL="StyleSheet" HREF="css/style.css" TYPE="text/css" />
+  <LINK REL="StyleSheet" HREF="css/iconic/css/iconmonstr-iconic-font.min.css" TYPE="text/css" />
+  <LINK REL="icon" type="image/png" href="css/Images/favicon.png" />
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+  <title>PedalPay</title>
+</head>
+
+<body onload="checkDetails();">
+  <div class="topnav" id="myTopnav">
+    <a href="index.html" class="logo">PedalPay</a>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="products.html">Products</a>
+    <a href="contact.html">Contact</a>
+    <a href="#" id="login3" class="btn btn-primary modal-open-links" data-toggle="modal" data-modal-show="one"
+      data-target="#myModal">Login</a>
+    <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+
+  </div>
+
+  <div id="loginModal" class="modal">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="close" data-dismiss="modal">&times;</span>
+        <h1>PedalPay</h1>
+      </div>
+      <div class="modal-body">
+        <div id="one" class="hide_first">
+          <div id="form">
+            <form id="loginForm" method="post" onsubmit="event.preventDefault(); loginValidation()"
+              action="http://www.matthewfrankland.co.uk/pedalPay/login/login.php">
+              <div class="loginError" id="loginError"></div>
+              <div class="loginSuccess" id="loginSuccess"></div>
+              <div class="inputs">
+                <h2>Login</h2>
+                <label id="loginEmailPrompt"> Email </label>
+                <input type="text" name="email" id="email" placeholder="Your email.." />
+              </div>
+
+              <div class="inputs">
+                <label id="loginPasswordPrompt"> Password </label>
+                <input type="password" name="password" id="password" placeholder="Your password.." />
+              </div>
+
+              <div class="inputs">
+                <div id="buttonholder">
+                  <button type="submit" name="login" class="btn">
+                    Login
+                  </button>
+                </div>
+              </div>
+              <p>
+                <a href="#" id="login2" class="btn btn-danger modal-open-links" data-toggle="modal"
+                  data-modal-show="two" data-target="#myModal">Not signed up?</a>
+              </p>
+              <p>
+                <a href="#" id="login2" class="btn btn-danger modal-open-links" data-toggle="modal"
+                  data-modal-show="three" data-target="#myModal">Forgot your password?</a>
+              </p>
+            </form>
+          </div>
+        </div>
+        <div id="two" style="display:none" class="hide_first">
+          <form id="registerForm" method="post" onsubmit="event.preventDefault();">
+            <div class="registerErrors" id="registerErrors"></div>
+            <div class="registerSuccess" id="registerSuccess"></div>
+
+            <h2>Sign Up</h2>
+
+            <div class="tab">
+              <h3>Login Information</h3>
+              <label id="registerEmailPrompt"> Email </label><br />
+              <input type="text" name="email" id="email2" placeholder="Your email.." /><br />
+
+              <label id="registerPasswordPrompt"> Password </label>
+              <input type="password" name="password" id="password" placeholder="Your password.." /><br />
+
+
+              <label id="registerPassword2Prompt"> Please repeat your password </label>
+              <input type="password" name="password2" id="password2"
+                placeholder="Please repeat your password.." /><br />
+            </div>
+
+            <div class="tab">
+              <h3>Personal Information</h3>
+
+              <label id="registerNamePrompt"> Name </label><br />
+              <input type="text" name="name" id="name" placeholder="Your name.." /><br />
+
+              <label id="registerDobPrompt"> DOB </label><br />
+              <select name="dob-day" id="dob-day">
+                <option value="">Day</option>
+                <option value="">---</option>
+                <option value="01">01</option>
+                <option value="02">02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="06">06</option>
+                <option value="07">07</option>
+                <option value="08">08</option>
+                <option value="09">09</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+                <option value="25">25</option>
+                <option value="26">26</option>
+                <option value="27">27</option>
+                <option value="28">28</option>
+                <option value="29">29</option>
+                <option value="30">30</option>
+                <option value="31">31</option>
+              </select>
+
+              <select name="dob-month" id="dob-month">
+                <option value="">Month</option>
+                <option value="">-----</option>
+                <option value="01">January</option>
+                <option value="02">February</option>
+                <option value="03">March</option>
+                <option value="04">April</option>
+                <option value="05">May</option>
+                <option value="06">June</option>
+                <option value="07">July</option>
+                <option value="08">August</option>
+                <option value="09">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+              </select>
+
+              <select name="dob-year" id="dob-year">
+                <option value="">Year</option>
+                <option value="">----</option>
+                <option value="2012">2012</option>
+                <option value="2011">2011</option>
+                <option value="2010">2010</option>
+                <option value="2009">2009</option>
+                <option value="2008">2008</option>
+                <option value="2007">2007</option>
+                <option value="2006">2006</option>
+                <option value="2005">2005</option>
+                <option value="2004">2004</option>
+                <option value="2003">2003</option>
+                <option value="2002">2002</option>
+                <option value="2001">2001</option>
+                <option value="2000">2000</option>
+                <option value="1999">1999</option>
+                <option value="1998">1998</option>
+                <option value="1997">1997</option>
+                <option value="1996">1996</option>
+                <option value="1995">1995</option>
+                <option value="1994">1994</option>
+                <option value="1993">1993</option>
+                <option value="1992">1992</option>
+                <option value="1991">1991</option>
+                <option value="1990">1990</option>
+                <option value="1989">1989</option>
+                <option value="1988">1988</option>
+                <option value="1987">1987</option>
+                <option value="1986">1986</option>
+                <option value="1985">1985</option>
+                <option value="1984">1984</option>
+                <option value="1983">1983</option>
+                <option value="1982">1982</option>
+                <option value="1981">1981</option>
+                <option value="1980">1980</option>
+                <option value="1979">1979</option>
+                <option value="1978">1978</option>
+                <option value="1977">1977</option>
+                <option value="1976">1976</option>
+                <option value="1975">1975</option>
+                <option value="1974">1974</option>
+                <option value="1973">1973</option>
+                <option value="1972">1972</option>
+                <option value="1971">1971</option>
+                <option value="1970">1970</option>
+                <option value="1969">1969</option>
+                <option value="1968">1968</option>
+                <option value="1967">1967</option>
+                <option value="1966">1966</option>
+                <option value="1965">1965</option>
+                <option value="1964">1964</option>
+                <option value="1963">1963</option>
+                <option value="1962">1962</option>
+                <option value="1961">1961</option>
+                <option value="1960">1960</option>
+                <option value="1959">1959</option>
+                <option value="1958">1958</option>
+                <option value="1957">1957</option>
+                <option value="1956">1956</option>
+                <option value="1955">1955</option>
+                <option value="1954">1954</option>
+                <option value="1953">1953</option>
+                <option value="1952">1952</option>
+                <option value="1951">1951</option>
+                <option value="1950">1950</option>
+                <option value="1949">1949</option>
+                <option value="1948">1948</option>
+                <option value="1947">1947</option>
+                <option value="1946">1946</option>
+                <option value="1945">1945</option>
+                <option value="1944">1944</option>
+                <option value="1943">1943</option>
+                <option value="1942">1942</option>
+                <option value="1941">1941</option>
+                <option value="1940">1940</option>
+                <option value="1939">1939</option>
+                <option value="1938">1938</option>
+                <option value="1937">1937</option>
+                <option value="1936">1936</option>
+                <option value="1935">1935</option>
+                <option value="1934">1934</option>
+                <option value="1933">1933</option>
+                <option value="1932">1932</option>
+                <option value="1931">1931</option>
+                <option value="1930">1930</option>
+                <option value="1929">1929</option>
+                <option value="1928">1928</option>
+                <option value="1927">1927</option>
+                <option value="1926">1926</option>
+                <option value="1925">1925</option>
+                <option value="1924">1924</option>
+                <option value="1923">1923</option>
+                <option value="1922">1922</option>
+                <option value="1921">1921</option>
+                <option value="1920">1920</option>
+                <option value="1919">1919</option>
+                <option value="1918">1918</option>
+                <option value="1917">1917</option>
+                <option value="1916">1916</option>
+                <option value="1915">1915</option>
+                <option value="1914">1914</option>
+                <option value="1913">1913</option>
+                <option value="1912">1912</option>
+                <option value="1911">1911</option>
+                <option value="1910">1910</option>
+                <option value="1909">1909</option>
+                <option value="1908">1908</option>
+                <option value="1907">1907</option>
+                <option value="1906">1906</option>
+                <option value="1905">1905</option>
+                <option value="1904">1904</option>
+                <option value="1903">1903</option>
+                <option value="1901">1901</option>
+                <option value="1900">1900</option>
+              </select></br>
+
+              <label id="registerGenderPrompt">Gender</label>
+              <select name="gender" id="gender">
+                <option value="m">Male</option>
+                <option value="f">Female</option>
+              </select>
+            </div>
+
+            <div class="tab">
+              <h3>Contact</h3>
+              <label id="registerAddressPrompt"> Address line 1 </label>
+              <input type="text" name="addressone" id="addressone" placeholder="Your address.." /><br />
+
+              <label id="registerCityPrompt"> City </label><br />
+              <input type="text" name="city" id="city" placeholder="Your city.." /><br />
+
+              <label id="registerPostCodePrompt"> Post code </label>
+              <input type="text" name="zip" id="zip" placeholder="Your post code.." /><br />
+
+              <label id="registerNumberPrompt">Mobile number</label><br />
+              <input type="text" name="mobile" id="mobile" placeholder="Your mobile number.." />
+              <br />
+            </div>
+
+            <div id="buttonholder">
+              <button type="button" id="prevBtn" onclick="nextPrev(-1)">
+                Previous
+              </button>
+              <button type="button" id="nextBtn" onclick="nextPrev(1)">
+                Next
+              </button>
+            </div>
+
+            <!-- Circles which indicates the steps of the form: -->
+            <div style="text-align:center;margin-top:40px;">
+              <span class="step"></span>
+              <span class="step"></span>
+              <span class="step"></span>
+              <span class="step"></span>
+            </div>
+
+            <div class="registerErrors" id="registerErrors"></div>
+            <div class="registerSuccess" id="registerSuccess"></div>
+
+            <p>
+              <a href="#" id="login2" class="btn btn-danger modal-open-links" data-toggle="modal" data-modal-show="one"
+                data-target="#myModal">Already signed up?</a>
+            </p>
+            <p>
+              <a href="#" id="login2" class="btn btn-danger modal-open-links" data-toggle="modal"
+                data-modal-show="three" data-target="#myModal">Forgot your password?</a>
+            </p>
+          </form>
+        </div>
+        <div id="three" style="display:none" class="hide_first">
+          <form id="resetPassForm" method="post" onsubmit="event.preventDefault(); resetValidation()"
+            action="http://www.matthewfrankland.co.uk/pedalPay/resetPass/emailReset.php">
+            <div class="resetErrors" id="resetErrors"></div>
+            <div class="inputs">
+              <h2>Reset Password</h2>
+              <label id="resetEmailPrompt"> Email </label>
+              <input type="text" name="email" placeholder="Your email.." />
+            </div>
+
+            <div class="inputs">
+              <div id="buttonholder">
+                <button type="submit" name="login" class="btn">
+                  Reset Password
+                </button>
+              </div>
+            </div>
+            <p>
+              <a href="#" id="login2" class="btn btn-danger modal-open-links" data-toggle="modal" data-modal-show="one"
+                data-target="#myModal">Remember your password?</a>
+            </p>
+            <p>
+              <a href="#" id="login2" class="btn btn-danger modal-open-links" data-toggle="modal" data-modal-show="two"
+                data-target="#myModal">Not signed up?</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    var currentTab = 0; // Current tab is set to be the first tab (0)
+    showTab(currentTab); // Display the current tab
+
+    function showTab(n) {
+      // This function will display the specified tab of the form...
+      var x = document.getElementsByClassName("tab");
+      x[n].style.display = "block";
+      //... and fix the Previous/Next buttons:
+      if (n == 0) {
+        document.getElementById("prevBtn").style.display = "none";
+
+      } else {
+        document.getElementById("prevBtn").style.display = "inline";
+      }
+      if (n == x.length - 1) {
+        document.getElementById("nextBtn").innerHTML = "Submit";
+        document.getElementById("nextBtn").type = "submit";
+      } else {
+        document.getElementById("nextBtn").innerHTML = "Next";
+        document.getElementById("nextBtn").type = "button";
+      }
+      //... and run a function that will display the correct step indicator:
+      fixStepIndicator(n);
+    }
+
+    function nextPrev(n) {
+      // This function will figure out which tab to display
+      var x = document.getElementsByClassName("tab");
+      // Exit the function if any field in the current tab is invalid:
+      if (n == 1 && !validateForm(currentTab)) return false;
+      // Hide the current tab:
+      x[currentTab].style.display = "none";
+      // Increase or decrease the current tab by 1:
+      currentTab = currentTab + n;
+      // if you have reached the end of the form...
+      if (currentTab >= x.length) {
+        // ... the form gets submitted:
+        //document.getElementById("registerForm").submit();
+        return false;
+      }
+      // Otherwise, display the correct tab:
+      showTab(currentTab);
+    }
+
+    function validateForm(n) {
+      // This function deals with validation of the form fields
+      var email = document.forms["registerForm"]["email"].value;
+      var password = document.forms["registerForm"]["password"].value;
+      var password2 = document.forms["registerForm"]["password2"].value;
+      var name = document.forms["registerForm"]["name"].value;
+      var addressone = document.forms["registerForm"]["addressone"].value;
+      var city = document.forms["registerForm"]["city"].value;
+      var zip = document.forms["registerForm"]["zip"].value;
+      var mobile = document.forms["registerForm"]["mobile"].value;
+      var valid = true;
+      if (n == 0) {
+        console.log("First tab submitting pending validation");
+        if (
+          !email.match(
+            /(?:[a-z0-9!#$%&'+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
+          )
+        ) {
+          producePrompt("Invalid email", "registerEmailPrompt", "#e43353");
+          valid = false;
+        } else {
+          producePrompt("Email", "registerEmailPrompt", "#853745");
+        }
+        if (!password2.match(password)) {
+          producePrompt("Passwords do not  match.", "registerPassword2Prompt", "#e43353");
+          producePrompt("Passwords do not  match.", "registerPasswordPrompt", "#e43353");
+          valid = false;
+        } else {
+          producePrompt("Password", "registerPasswordPrompt", "#853745");
+          producePrompt("Please repeat your password", "registerPassword2Prompt", "#853745");
+        }
+        if (!password.match(/^.{6,}$/)) {
+          producePrompt(
+            "Invalid password",
+            "registerPasswordPrompt",
+            "#e43353"
+          );
+          valid = false;
+        } else {
+          producePrompt("Password", "registerPasswordPrompt", "#853745");
+        }
+      }
+      if (n == 1) {//Then we are on tab 1, so check name.
+        if (!name.match(/^.{2,}$/)) {
+          producePrompt("Invalid name", "registerNamePrompt", "#e43353");
+          valid = false;
+        } else {
+          producePrompt("Name", "registerNamePrompt", "#853745");
+        }
+      }
+      if (n == 2) {//Then we are on tab 2, so check address and
+        if (!addressone.match(/^.{2,}$/)) {
+          producePrompt(
+            "Invalid address",
+            "registerAddressPrompt",
+            "#e43353"
+          );
+          valid = false;
+        } else {
+          producePrompt("Address", "registerAddressPrompt", "#853745");
+        }
+        if (
+          !mobile.match(/^.{11,}$/
+          )
+        ) {
+          producePrompt(
+            "Invalid mobile number",
+            "registerNumberPrompt",
+            "#e43353"
+          );
+          valid = false;
+        } else {
+          producePrompt("mobile number", "registerNumberPrompt", "#853745");
+        }
+        if (!city.match(/^.{2,}$/)) {
+          producePrompt("Invalid city", "registerCityPrompt", "#e43353");
+          valid = false;
+        } else {
+          producePrompt("City", "registerCityPrompt", "#853745");
+        }
+        if (
+          !zip.match(
+            /^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$/
+          )
+        ) {
+          producePrompt(
+            "Invalid post code",
+            "registerPostCodePrompt",
+            "#e43353"
+          );
+          valid = false;
+        } else {
+          producePrompt("Post code", "registerPostCodePrompt", "#853745");
+        }
+      }
+      // If the valid status is true, mark the step as finished and valid:
+      if (valid) {
+        document.getElementsByClassName("step")[currentTab].className +=
+          " finish";
+      }
+      return valid; // return the valid status
+    }
+
+    function fixStepIndicator(n) {
+      // This function removes the "active" class of all steps...
+      var i,
+        x = document.getElementsByClassName("step");
+      for (i = 0; i < x.length; i++) {
+        x[i].className = x[i].className.replace(" active", "");
+      }
+      //... and adds the "active" class on the current step:
+      x[n].className += " active";
+    }
+  </script>
+  <script>
+    function checkDetails() {
+      if (sessionStorage.getItem("adminEmailStorage") != null) {
+        document.getElementById("loginModal").style.display = "none";
+        var elem = document.getElementById("login3");
+        var indexOfEmail = sessionStorage
+          .getItem("adminEmailStorage")
+          .indexOf("@");
+        var username = sessionStorage
+          .getItem("adminEmailStorage")
+          .substring(0, indexOfEmail);
+        elem.outerHTML =
+          "<div class='dropdown'><button class='dropbtn'>" + username + " <i class='fa fa-caret-down'></i></button><div class='dropdown-content'><a href='personalprofile.html'>Your info</a><a href='bookingsprofile.html'>Your bookings</a><a href='healthprofile.html'>Your health</a><a href='leaderboard.html'>Leaderboard</a><a href='booking.html'>Book now</a><a href='reviews.html'>Leave a review</a><a href='javascript:logOut();'>Logout</a></div>";
+
+      }
+    }
+  </script>
+  <!--Login script for nav-->
+  <script>
+    // Get the modal
+    var modal = document.getElementById("loginModal");
+    // Get the button that opens the modal
+    var btn = document.getElementById("login3");
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+    // When the user clicks the button, open the modal
+    btn.onclick = function () {
+      modal.style.display = "block";
+    };
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+      modal.style.display = "none";
+    };
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    };
+  </script>
+
+  <script>
+    $(".modal-open-links").on("click", function (e) {
+      //Set display:none for all first
+      $(".hide_first").css("display", "none");
+      content_to_show = $(this).attr("data-modal-show");
+      //Show the one we clicked
+      $("#" + content_to_show).css("display", "block");
+    });
+  </script>
+
+  <div id="aboutv2Content">
+    <div class="header">
+      <div class="headerText">
+        <h1>About</h1>
+      </div>
+    </div>
+    <div class="tbleft">
+      <h1>What is PedalPay?</h1>
+      <p>
+        PedalPay is an amazing alternative to traditional means of public
+        transport. We thrive on keeping you fit while saving the planet.
+      </p>
+    </div>
+    <div class="tbright">
+      <h1>Why PedalPay?</h1>
+      <p>
+        We care a lot about the obesity rates in the UK and believe most forms of
+        exercise are just too expensive. So we created this cheap alternative to buying
+        a bike or joining a gym that can do everything a static bike does while getting
+        you out into the fresh air.
+      </p>
+    </div>
+    <div class="row">
+      <div class="tbleft">
+        <h1>Why Edinburgh?</h1>
+        <p>
+          Edinburgh is a beautiful city, and don't just take my word for it, grab a bike
+          and get sight seeing! It has an excellent infrastucture of bike lanes, scenic
+          bike routes and the need to travel further than just walking distance. <br /><br />
+          That said, we are hoping to expand to more cities soon, so if you believe your
+          city could benefit from PedalPay, make sure to <a href="contact.html">contact us</a>
+          with reasons on why we should expand to your city next.
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="tbright">
+        <h1>Why bikes?</h1>
+        <p>
+          Bikes are not only quicker, but also burns more calories than walking over the same
+          distance. It's also a lot funner to feel the fresh air on a Scottish morning on your
+          face while cycling than it is walking.
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="tbleft">
+        <h1>Does PedalPay cater to the disabled?</h1>
+        <p>
+          Yes! Here at PedalPay we believe cycling should be available to as many
+          users as possible. We offer state of the art handbikes which allow riders
+          to pedal with their hands <i>(sounds fun eh?)</i>. Just make sure to select
+          handbike when making your booking.
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="tbright">
+        <h1>My bike broke down, what should I do?</h1>
+        <p>
+          No worries at all, we understand that bikes can break down a lot. Just
+          get in touch with us by <a href="contact.html">one of our many ways of contact</a> and we'll
+          make sure to get you to safety.
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="tbleft">
+        <h1>Can I change my booking?</h1>
+        <p>
+          Of course you can! Once you log in, you can go to your <a href="bookingsprofile.html">bookings
+            profile </a>
+          and from there you can view, edit or cancel any of your bookings!
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="tbright">
+        <h1>I'm new to cycling, what should I do?</h1>
+        <p>
+          At PedalPay we're excited to introduce new cyclists to the world of bikes. First thing to do, is
+          ensure you know <a href="https://www.donkey.bike/uk-cycling-rules/"> the UK bike laws.</a> Once
+          you're all sorted on the legal front, you may want to consider starting out with some
+          <a href="http://www.cycling-edinburgh.org.uk/bike-paths.htm">safe cycle routes</a> to get into
+          the swing of it. Anything else you need, dont hesitate to <a href="contact.html">contact us</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div id="footerContent">
+    <div id="footleft">
+      <b>PedalPay</b>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="products.html">Products</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div id="footcent">
+      <b>Information</b>
+      <a href="http://www.cycling-edinburgh.org.uk/bike-paths.htm">Safe Cycle Routes</a>
+      <a href="https://www.donkey.bike/uk-cycling-rules/">Bike Laws UK</a>
+      <a href="https://www.cyclingweekly.com/news/product-news/fix-a-puncture-142674">Fixing a Flat</a>
+      <a href="https://www.wikihow.com/Fix-a-Slipped-Bike-Chain">Fixing a Slipped Chain</a>
+    </div>
+    <div id="footcontact">
+      <b>Find us</b>
+      <p>G37 Earl Mountbatten,</p>
+      <p>Heriot Watt University,</p>
+      <p>Edinburgh,</p>
+      <p>EH144AS</p>
+    </div>
+    <div id="footright">
+      <div id="socials">
+        <a href="https://www.facebook.com/PedalPayLMT/" class="icon"><i class="im im-facebook"></i></a>
+        <a href="https://twitter.com/PayPedal" class="icon"><i class="im im-twitter"></i></a>
+        <a href="https://www.instagram.com/pedalpayuk/" class="icon">
+          <i class="im im-instagram"></i></a>
+        <a href="mailto:pedalpaylmt@gmail.com" targer="_top" class="icon"><i class="im im-mail"></i></a>
+      </div>
+      <a href="terms.html">Terms</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="sitemap.html">Site map</a>
+    </div>
+    <div id="logo">
+      <h1>PedalPay</h1>
+      <p>©</p>
+    </div>
+    <div id="footbot">
+      <div id="socialsCenter">
+        <a href="https://www.facebook.com/PedalPayLMT/" class="icon"><i class="im im-facebook"></i></a>
+        <a href="https://twitter.com/PayPedal" class="icon"><i class="im im-twitter"></i></a>
+        <a href="https://www.instagram.com/pedalpayuk/" class="icon">
+          <i class="im im-instagram"></i></a>
+        <a href="mailto:pedalpaylmt@gmail.com" targer="_top" class="icon"><i class="im im-mail"></i></a>
+      </div>
+      <a href="terms.html">Terms</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="sitemap.html">Site map</a>
+    </div>
+  </div>
+
+  <script>
+    function loginValidation() {
+      var email = document.forms["loginForm"]["email"].value;
+      var password = document.forms["loginForm"]["password"].value;
+      if (!email.match(/\S+@\S+\.\S+/)) {
+        producePrompt("Invalid email", "loginEmailPrompt", "#e43353");
+      }
+      if (!password.match(/^.{6,}$/)) {
+        producePrompt("Invalid password", "loginPasswordPrompt", "#e43353");
+      }
+      if (password.match(/^.{6,}$/)) {
+        producePrompt("Password", "loginPasswordPrompt", "#853745");
+      }
+      if (email.match(/\S+@\S+\.\S+/)) {
+        producePrompt("Email", "loginEmailPrompt", "#853745");
+      }
+    }
+  </script>
+
+  <script>
+    function registerValidation() {
+      var email = document.forms["registerForm"]["email"].value;
+      var password = document.forms["registerForm"]["password"].value;
+      var name = document.forms["registerForm"]["name"].value;
+      var dob = document.forms["registerForm"]["dob"].value;
+      var addressone = document.forms["registerForm"]["addressone"].value;
+      var city = document.forms["registerForm"]["city"].value;
+      var zip = document.forms["registerForm"]["zip"].value;
+
+      if (!email.match(/\S+@\S+\.\S+/)) {
+        producePrompt("Invalid email", "registerEmailPrompt", "#e43353");
+      }
+      if (!password.match(/^.{6,}$/)) {
+        producePrompt(
+          "Invalid password",
+          "registerPasswordPrompt",
+          "#e43353"
+        );
+      }
+      if (!name.match(/^.{2,}$/)) {
+        producePrompt("Invalid name", "registerNamePrompt", "#e43353");
+      }
+      if (
+        !dob.match(
+          /(0[1-9]|[12][0-9]|3[01])[/](0[1-9]|1[012])[/]([1-9][0-9][0-9][0-9]|0[1-9][0-9][0-9]|00[1-9][0-9]|000[1-9])/
+        )
+      ) {
+        producePrompt("Invalid DOB", "registerDobPrompt", "#e43353");
+      }
+      if (!addressone.match(/^.{2,}$/)) {
+        producePrompt("Invalid address", "registerAddressPrompt", "#e43353");
+      }
+      if (!city.match(/^.{2,}$/)) {
+        producePrompt("Invalid city", "registerCityPrompt", "#e43353");
+      }
+      if (
+        !zip.match(
+          /^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$/
+        )
+      ) {
+        producePrompt(
+          "Invalid post code",
+          "registerPostCodePrompt",
+          "#e43353"
+        );
+      }
+
+      if (password.match(/^.{6,}$/)) {
+        producePrompt("Password", "registerPasswordPrompt", "#853745");
+      }
+      if (email.match(/\S+@\S+\.\S+/)) {
+        producePrompt("Email", "registerEmailPrompt", "#853745");
+      }
+      if (name.match(/^.{2,}$/)) {
+        producePrompt("Name", "registerNamePrompt", "#853745");
+      }
+      if (
+        dob.match(
+          /(0[1-9]|[12][0-9]|3[01])[/](0[1-9]|1[012])[/]([1-9][0-9][0-9][0-9]|0[1-9][0-9][0-9]|00[1-9][0-9]|000[1-9])/
+        )
+      ) {
+        producePrompt("DOB", "registerDobPrompt", "#853745");
+      }
+      if (addressone.match(/^.{2,}$/)) {
+        producePrompt("Address line 1", "registerAddressPrompt", "#853745");
+      }
+      if (city.match(/^.{2,}$/)) {
+        producePrompt("City", "registerCityPrompt", "#853745");
+      }
+      if (
+        zip.match(
+          /^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$/
+        )
+      ) {
+        producePrompt("Post code", "registerPostCodePrompt", "#853745");
+      }
+    }
+  </script>
+
+  <script>
+    function resetValidation() {
+      var email = document.forms["resetPassForm"]["email"].value;
+      if (!email.match(/\S+@\S+\.\S+/)) {
+        producePrompt("Invalid email", "resetEmailPrompt", "#e43353");
+      }
+      if (email.match(/\S+@\S+\.\S+/)) {
+        producePrompt("Invalid email", "resetEmailPrompt", "#853745");
+      }
+    }
+  </script>
+
+  <script>
+    function producePrompt(message, promptLocation, color) {
+      document.getElementById(promptLocation).innerHTML = message;
+      document.getElementById(promptLocation).style.color = color;
+    }
+  </script>
+
+  <script>
+    $(function () {
+      $("#loginForm").on("submit", function (e) {
+        var email = document.forms["loginForm"]["email"].value;
+        var password = document.forms["loginForm"]["password"].value;
+        if (email.match(/\S+@\S+\.\S+/) && password.match(/^.{6,}$/)) {
+          $.ajax({
+            type: "post",
+            url: "http://www.matthewfrankland.co.uk/pedalPay/login/login.php",
+            data: $("#loginForm").serialize(),
+            success: function (response) {
+              $("#loginError").html("");
+              $("#loginSuccess").html("");
+              var message = jQuery.parseJSON(response);
+              if (message.error == true) {
+                $("#loginError").html("<p>" + message.message + "</p>");
+              } else {
+                sessionStorage.setItem("adminEmailStorage", message.message);
+                sessionStorage.setItem("adminNameStorage", message.userDetails[0].name);
+                sessionStorage.setItem("adminDOBStorage", message.userDetails[0].dob);
+                sessionStorage.setItem("adminMobileStorage", message.userDetails[0].mobile);
+                sessionStorage.setItem("adminAddressStorage", message.userDetails[0].addressone);
+                sessionStorage.setItem("adminCityStorage", message.userDetails[0].city);
+                sessionStorage.setItem("adminZIPStorage", message.userDetails[0].zip);
+                sessionStorage.setItem("adminGenderStorage", message.userDetails[0].gender);
+                sessionStorage.setItem(
+                  "adminPasswordStorage",
+                  document.getElementById("password").value
+                );
+
+                //document.getElementById("loginModal").style.display = "none";
+                var elem = document.getElementById("login3");
+                var indexOfEmail = sessionStorage
+                  .getItem("adminEmailStorage")
+                  .indexOf("@");
+                var username = sessionStorage
+                  .getItem("adminEmailStorage")
+                  .substring(0, indexOfEmail);
+                document.getElementById("form").innerHTML = "<p class='confirmation'>Welcome " + username + "</p><div class='btnHolder'><a class='confirmationLink' href='booking.html'>Book now!</a></div>";
+                elem.outerHTML = "<div class='dropdown'><button class='dropbtn'>" + username + " <i class='fa fa-caret-down'></i></button><div class='dropdown-content'><a href='personalprofile.html'>Your info</a><a href='bookingsprofile.html'>Your bookings</a><a href='healthprofile.html'>Your health</a><a href='leaderboard.html'>Leaderboard</a><a href='booking.html'>Book now</a><a href='reviews.html'>Leave a review</a><a href='javascript:logOut();'>Logout</a></div>";
+                elem = document.getElementById("buttons");
+                elem.parentNode.removeChild(elem);
+                elem = document.getElementById("bookButton");
+                elem.style = "display: inline-block";
+              }
+            },
+            error: function () {
+              //if fails
+              alert("Something went wrong!");
+            }
+          });
+        }
+        e.preventDefault();
+      });
+    });
+  </script>
+
+  <script>
+    $(function () {
+      $("#registerForm").on("submit", function (e) {
+        var email = document.forms["registerForm"]["email"].value;
+        var password = document.forms["registerForm"]["password"].value;
+        var name = document.forms["registerForm"]["name"].value;
+        var dobday = document.forms["registerForm"]["dob-day"].value;
+        var dobmonth = document.forms["registerForm"]["dob-month"].value;
+        var dobyear = document.forms["registerForm"]["dob-year"].value;
+        var dob = new Date(dobyear, dobmonth - 1, dobday);
+        dob = dob.toISOString().split('T')[0];
+        alert(dob);
+        //var dob = document.forms["registerForm"]["dob"].value;
+        var addressone = document.forms["registerForm"]["addressone"].value;
+        var city = document.forms["registerForm"]["city"].value;
+        var zip = document.forms["registerForm"]["zip"].value;
+        var mobile = document.forms["registerForm"]["mobile"].value;
+        if (
+          email.match(/\S+@\S+\.\S+/) &&
+          password.match(/^.{6,}$/) &&
+          name.match(/^.{2,}$/) &&
+          mobile.match(/^.{11,}$/) &&
+          addressone.match(/^.{2,}$/) &&
+          city.match(/^.{2,}$/) &&
+          zip.match(
+            /^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$/
+          )
+        ) {
+          $.ajax({
+            type: "post",
+            url:
+              "http://www.matthewfrankland.co.uk/pedalPay/login/register.php",
+            data: $("#registerForm").serialize() + '&dob=' + dob,
+            success: function (response) {
+              alert(response);
+              $("#registerErrors").html("");
+              $("#registerSuccess").html("");
+              var message = jQuery.parseJSON(response);
+              if (message.error == true) {
+                $("#registerErrors").html("<p>" + message.message + "</p>");
+              } else {
+                sessionStorage.setItem("adminEmailStorage", document.forms["registerForm"]["email2"].value);
+                sessionStorage.setItem("adminNameStorage", document.forms["registerForm"]["name"].value);
+                sessionStorage.setItem("adminDOBStorage", dob);
+                sessionStorage.setItem("adminMobileStorage", document.forms["registerForm"]["mobile"].value);
+                sessionStorage.setItem("adminAddressStorage", document.forms["registerForm"]["addressone"].value);
+                sessionStorage.setItem("adminCityStorage", document.forms["registerForm"]["city"].value);
+                sessionStorage.setItem("adminZIPStorage", document.forms["registerForm"]["zip"].value);
+                sessionStorage.setItem("adminGenderStorage", document.forms["registerForm"]["gender"].value);
+                sessionStorage.setItem("adminPasswordStorage", document.forms["registerForm"]["password"].value);
+
+                //document.getElementById("loginModal").style.display = "none";
+                var elem = document.getElementById("login3");
+                var indexOfEmail = sessionStorage
+                  .getItem("adminEmailStorage")
+                  .indexOf("@");
+                var username = sessionStorage
+                  .getItem("adminEmailStorage")
+                  .substring(0, indexOfEmail);
+                document.getElementById("two").innerHTML = "<p class='confirmation'>Welcome " + username + "</p><div class='btnHolder'><a class='confirmationLink' href='booking.html'>Book now!</a></div>";
+                elem.outerHTML = "<div class='dropdown'><button class='dropbtn'>" + username + " <i class='fa fa-caret-down'></i></button><div class='dropdown-content'><a href='personalprofile.html'>Your info</a><a href='bookingsprofile.html'>Your bookings</a><a href='healthprofile.html'>Your health</a><a href='booking.html'>Book now</a><a href='leaderboard.html'>Leaderboard</a><a href='reviews.html'>Leave a review</a><a href='javascript:logOut();'>Logout</a></div>";
+                elem = document.getElementById("buttons");
+                elem.parentNode.removeChild(elem);
+                elem = document.getElementById("bookButton");
+                elem.style = "display: inline-block";
+              }
+            },
+            error: function () {
+              //if fails
+              alert("The request failed");
+            }
+          });
+        }
+        e.preventDefault();
+      });
+    });
+  </script>
+  <script>
+    $(function () {
+      $("#resetPassForm").on("submit", function (e) {
+        var email = document.forms["resetPassForm"]["email"].value;
+        if (email.match(/\S+@\S+\.\S+/)) {
+          $.ajax({
+            type: "post",
+            url:
+              "http://www.matthewfrankland.co.uk/pedalPay/resetPass/emailReset.php",
+            data: $("#resetPassForm").serialize(),
+            success: function (response) {
+              $("#resetErrors").html("");
+              var message = jQuery.parseJSON(response);
+              $("#resetErrors").html("<p>" + message.message + "</p>");
+            },
+            error: function () {
+              //if fails
+              alert("The request failed");
+            }
+          });
+        }
+        e.preventDefault();
+      });
+    });
+  </script>
+  <script>
+    function myFunction() {
+      var x = document.getElementById("myTopnav");
+      if (x.className === "topnav") {
+        x.className += " responsive";
+      } else {
+        x.className = "topnav";
+      }
+    }
+  </script>
+  <script>
+    function logOut() {
+      sessionStorage.removeItem("adminEmailStorage");
+      sessionStorage.removeItem("adminNameStorage");
+      sessionStorage.removeItem("adminDOBStorage");
+      sessionStorage.removeItem("adminMobileStorage");
+      sessionStorage.removeItem("adminAddressStorage");
+      sessionStorage.removeItem("adminCityStorage");
+      sessionStorage.removeItem("adminZIPStorage");
+      sessionStorage.removeItem("adminGenderStorage");
+      sessionStorage.removeItem("adminPasswordStorage");
+      window.location.reload();
+    }
+  </script>
+</body>
+
+</html>

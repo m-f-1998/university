@@ -1,0 +1,73 @@
+*{
+  width: auto;
+  font-size: 15px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+#vr-title{
+  font-size: 30px;
+  color: #292929;
+  text-align: center;
+}
+
+p{
+  color: #606060;
+}
+
+.div-main{
+  text-align: center;
+  display: block;
+}
+.div-scatterplot{
+  width: 50%;
+  float: left;
+}
+label{
+	font-size:16px;
+}
+
+select,option{
+	font-size: 15px;
+}
+
+
+#scatter_plot_cont,#scatter_plot_cont2{
+	margin-top:-45px;
+}
+
+.main-scatterplot-container{
+margin-top:-87px;
+}
+
+#correlation,#correlation2{
+margin-top:-10px;
+}
+
+
+.model_div{
+  width: 33%;
+  display:block;
+  float: left;
+}
+#scatter_plot_cont{
+  display: block;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+#dir_select_div{
+margin-top:-30px;
+}
+
+#conf-file-main{
+	font-size:16px;
+	width:30%;
+	text-align: center;
+    display:block;
+    margin-left:auto;
+	margin-right:auto;
+	margin-top:20px;
+	margin-bottom:20px;
+	padding-top:20px;
+	padding-bottom:20px;
+}

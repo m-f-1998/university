@@ -1,0 +1,2 @@
+0	en	word0 word1 word1 word0 word2
+1	en	word2 word1 word2 word1 word1

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <LINK REL="StyleSheet" HREF="css/style.css" TYPE="text/css" />
+    <LINK REL="StyleSheet" HREF="css/iconic/css/iconmonstr-iconic-font.min.css" TYPE="text/css" />
+    <LINK REL="icon" type="image/png" href="css/Images/favicon.png" />
+    <!-- Load c3.css -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>PedalPay</title>
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+           * element that contains the map. */
+        #map {
+            height: 60%;
+            width: 60%;
+            margin: auto;
+            margin-top: 6em;
+
+        }
+
+        /* Optional: Makes the sample page fill the window. */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            background-color: #853745;
+        }
+    </style>
+</head>
+    <script>
+        function checkDetails() {
+            if (sessionStorage.getItem('adminEmailStorage') != null) {
+                document.getElementById("loginModal").style.display = "none";
+                var elem = document.getElementById("login3");
+                elem.parentNode.removeChild(elem);
+            }
+        }
+    </script>
+
+<body onload="checkDetails();">
+    <div class="topnav" id="myTopnav">
+        <a href="index.html" class="logo">PedalPay</a>
+        <a href="bikes.html">Bikes</a>
+        <a href="users.html">Users</a>
+        <a href="heatmap.html">Heat map</a>
+        <a href="report.html">Report</a>
+        <a href="#" id="login3" class="btn btn-primary modal-open-links" data-toggle="modal" data-modal-show="one"
+            data-target="#myModal">Login</a>
+        <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+
+    </div>
+    <div id="map"></div>
+
+    <script>
+        var map;
+        var locationlookup;
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 55.952, lng: -3.19 },
+                zoom: 12,
+                mapTypeId: google.maps.MapTypeId.HYBRID
+            });
+            var form = new FormData();
+            form.append("email", sessionStorage.getItem('adminEmailStorage'));
+            form.append("password", sessionStorage.getItem('adminPasswordStorage'));
+
+            var settings = $.ajax({
+                "async": true,
+                "crossDomain": true,
+                "url": "http://www.matthewfrankland.co.uk/pedalPay/userFunctions/locations.php",
+                "method": "POST",
+                "processData": false,
+                "contentType": false,
+                "mimeType": "multipart/form-data",
+                "data": form
+            });
+            var settings1 = $.ajax({
+                "async": true,
+                "crossDomain": true,
+                "method": "POST",
+                "processData": false,
+                "contentType": false,
+                "mimeType": "multipart/form-data",
+                "url": "http://www.matthewfrankland.co.uk/pedalPay/userFunctions/getBookings.php",
+                "method": "POST",
+                "data": form
+            });
+            $.when(settings, settings1).done(function (r1, r2) {
+                r1 = JSON.parse(r1[0]);
+                r1 = r1.message
+                r2 = JSON.parse(r2[0]);
+                r2 = r2.message;
+                var locset = [];
+                var i;
+                for (i = 0; i < r1.length; i++) {
+                    locset.push({ 'location': new google.maps.LatLng(r1[i]['lat'], r1[i]['lng']), 'weight': 0, 'id': r1[i]['id'] })
+                }
+                for (i = 0; i < r2.length; i++) {
+                    for (x = 0; x < locset.length; x++) {
+                        if (r2[i]['lid'] == locset[x]['id']) {
+                            locset[x]['weight'] = locset[x]['weight'] + 1;
+                        }
+                    }
+
+                }
+                var heatmap = new google.maps.visualization.HeatmapLayer({
+                    data: locset
+                });
+                heatmap.setMap(map);
+            });
+        }
+    </script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAH3FQG8YcgP3NbuRN3EATXq1NXzQ7m7j8&callback=initMap&libraries=visualization"
+        async defer></script>
+    <script>
+        function myFunction() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+        }
+    </script>
+
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <!-- Modal content -->
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" data-dismiss="modal">&times;</span>
+                <h1>PedalPay</h1>
+            </div>
+            <div class="modal-body">
+                <div id="one" class="hide_first">
+                    <div id="form">
+                        <form id="loginForm" method="post"
+                            action="http://www.matthewfrankland.co.uk/pedalPay/login/login.php">
+                            <div class="loginError" id="loginError"></div>
+                            <div class="loginSuccess" id="loginSuccess"></div>
+                            <div class="inputs">
+                                <h2>Admin Login</h2>
+                                <label> Email </label>
+                                <input type="text" name="email" placeholder="Your email.." />
+                            </div>
+
+                            <div class="inputs">
+                                <label> Password </label>
+                                <input type="password" name="password" id="password" placeholder="Your password.." />
+                            </div>
+
+                            <div class="inputs">
+                                <div id="buttonholder">
+                                    <button type="submit" name="login" class="btn">
+                                        Login
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Login script for nav-->
+    <script>
+        // Get the modal
+        var modal = document.getElementById("loginModal");
+        // Get the button that opens the modal
+        var btn = document.getElementById("login3");
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+        // When the user clicks the button, open the modal
+        btn.onclick = function () {
+            modal.style.display = "block";
+        };
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        };
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
+    </script>
+
+    <script>
+        $(".modal-open-links").on("click", function (e) {
+            //Set display:none for all first
+            $(".hide_first").css("display", "none");
+            content_to_show = $(this).attr("data-modal-show");
+            //Show the one we clicked
+            $("#" + content_to_show).css("display", "block");
+        });
+    </script>
+
+
+
+
+    <script>
+        $(function () {
+            $("#loginForm").on("submit", function (e) {
+                $.ajax({
+                    type: "post",
+                    url: "http://www.matthewfrankland.co.uk/pedalPay/login/login.php",
+                    data: $("#loginForm").serialize(),
+                    success: function (response) {
+                        $("#loginError").html("");
+                        $("#loginSuccess").html("");
+                        var message = jQuery.parseJSON(response);
+                        if (message.error == true) {
+                            $("#loginError").html("<p>" + message.message + "</p>");
+                        } else if (message.admin == false) {
+                            $("#loginError").html("You are not an admin!");
+                        } else {
+                            sessionStorage.setItem("adminEmailStorage", message.message);
+                            sessionStorage.setItem(
+                                "adminPasswordStorage",
+                                document.getElementById("password").value
+                            );
+                            document.getElementById("loginModal").style.display = "none";
+                            var elem = document.getElementById("login3");
+                            elem.parentNode.removeChild(elem);
+                            $("#loginError").html(
+                                "<p> Welcome, " + message.message + "</p>"
+                            );
+                        }
+                    },
+                    error: function () {
+                        //if fails
+                        $("#loginError").html("");
+                        $("#loginError").html("Something went wrong!");
+                    }
+                });
+                e.preventDefault();
+            });
+        });
+    </script>
+</body>
+
+</html>

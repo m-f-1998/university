@@ -1,0 +1,92 @@
+{
+  "1": {
+    "clusterID": 1,
+    "left": {
+      "clusterID": 1,
+      "left": {
+        "modelID": "1",
+        "topicID": "topic2",
+        "clusterID": 1
+      },
+      "right": {
+        "modelID": "3",
+        "topicID": "topic0",
+        "clusterID": 1
+      },
+      "usedModels": [
+        "1",
+        "3"
+      ]
+    },
+    "right": {
+      "modelID": "2",
+      "topicID": "topic0",
+      "clusterID": 1
+    },
+    "usedModels": [
+      "2",
+      "1",
+      "3"
+    ]
+  },
+  "2": {
+    "clusterID": 2,
+    "left": {
+      "clusterID": 2,
+      "left": {
+        "modelID": "1",
+        "topicID": "topic1",
+        "clusterID": 2
+      },
+      "right": {
+        "modelID": "3",
+        "topicID": "topic1",
+        "clusterID": 2
+      },
+      "usedModels": [
+        "1",
+        "3"
+      ]
+    },
+    "right": {
+      "modelID": "2",
+      "topicID": "topic1",
+      "clusterID": 2
+    },
+    "usedModels": [
+      "2",
+      "1",
+      "3"
+    ]
+  },
+  "3": {
+    "clusterID": 3,
+    "left": {
+      "clusterID": 3,
+      "left": {
+        "modelID": "2",
+        "topicID": "topic2",
+        "clusterID": 3
+      },
+      "right": {
+        "modelID": "3",
+        "topicID": "topic2",
+        "clusterID": 3
+      },
+      "usedModels": [
+        "2",
+        "3"
+      ]
+    },
+    "right": {
+      "modelID": "1",
+      "topicID": "topic0",
+      "clusterID": 3
+    },
+    "usedModels": [
+      "1",
+      "2",
+      "3"
+    ]
+  }
+}

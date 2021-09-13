@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <LINK REL="StyleSheet" HREF="css/style.css" TYPE="text/css" />
+    <LINK REL="StyleSheet" HREF="css/iconic/css/iconmonstr-iconic-font.min.css" TYPE="text/css" />
+    <LINK REL="icon" type="image/png" href="css/Images/favicon.png" />
+    <title>PedalPay</title>
+</head>
+
+<body>
+    <div id="nav">
+        <a href="index.html">
+            <logo>PedalPay</logo>
+        </a>
+        <ul>
+            <li><a href="users.html">User queries</a></li>
+            <li><a href="bikes.html">Bike queries</a></li>
+            <li><a href="hubs.html">Hub queries</a></li>
+            <li><a href="report.html">Reports</a></li>
+            <li> <a href="#" id="login3" class="btn btn-primary modal-open-links" data-toggle="modal" data-modal-show="one"
+                    data-target="#myModal">Login</a></li>
+        </ul>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <!-- Modal content -->
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" data-dismiss="modal">&times;</span>
+                <h1>PedalPay</h1>
+            </div>
+            <div class="modal-body">
+                <div id="one" class="hide_first">
+                    <div id=form>
+                        <form id="loginForm" method="post" action="http://www.matthewfrankland.co.uk/pedalPay/login/login.php">
+                            <div class="loginError" id="loginError"></div>
+                            <div class="loginSuccess" id="loginSuccess"></div>
+                            <div class="inputs">
+                                <h2>Login</h2>
+                                <label> Email </label> <input type="text" name="email" placeholder="Your email.." />
+                            </div>
+
+                            <div class="inputs">
+                                <label> Password </label> <input type="password" name="password" placeholder="Your password.." />
+                            </div>
+
+                            <div class="inputs">
+                                <div id="buttonholder">
+                                    <button type="submit" name="login" class="btn">Login</button>
+                                </div>
+                            </div>
+                            <p>Register an admin <a href="#" id="login2" class="btn btn-danger modal-open-links"
+                                    data-toggle="modal" data-modal-show="two" data-target="#myModal">here</a></p>
+                            <p>Forgot your password? Reset it <a href="#" id="login2" class="btn btn-danger modal-open-links"
+                                    data-toggle="modal" data-modal-show="three" data-target="#myModal">here</a></p>
+                        </form>
+                    </div>
+                </div>
+                <div id="two" style="display:none" class="hide_first">
+                    <form id="registerForm" method="post" action="http://www.matthewfrankland.co.uk/pedalPay/login/register.php">
+                        <div class="registerErrors" id="registerErrors"></div>
+                        <div class="registerSuccess" id="registerSuccess"></div>
+                        <div class="inputs">
+                            <h2>Register an admin</h2>
+                            <form id="registerForm" method="post" action="http://www.matthewfrankland.co.uk/pedalPay/adminFunctions/adminRegister.php">
+                                <label> Admin email </label> <input type="text" name="adminEmail" /><br>
+                                <label> Admin password </label>
+                                <input type="password" name="adminPassword" /><br>
+                                <label> Email to register </label> <input type="text" name="email" />
+                                <label> Password to register </label>
+                                <input type="password" name="password" />
+
+                                <div id="buttonholder">
+                                    <button type="submit" name="login" class="btn">Register</button>
+                                </div>
+                        </div>
+                        <p>Login <a href="#" id="login2" class="btn btn-danger modal-open-links" data-toggle="modal"
+                                data-modal-show="one" data-target="#myModal">here</a></p>
+                        <p>Forgot your password? Reset it <a href="#" id="login2" class="btn btn-danger modal-open-links"
+                                data-toggle="modal" data-modal-show="three" data-target="#myModal">here</a></p>
+                    </form>
+                </div>
+                <div id="three" style="display:none" class="hide_first">
+                    <form id="resetPassForm" method="post" action="http://www.matthewfrankland.co.uk/pedalPay/resetPass/emailReset.php">
+                        <div class="resetErrors" id="resetErrors"></div>
+                        <div class="inputs">
+                            <h2>Reset Password</h2>
+                            <label> Email </label> <input type="text" name="email" placeholder="Your email.." />
+                        </div>
+
+                        <div class="inputs">
+                            <div id="buttonholder">
+                                <button type="submit" name="login" class="btn">Reset Password</button>
+                            </div>
+                        </div>
+                        <p>Remember your password? Login <a href="#" id="login2" class="btn btn-danger modal-open-links"
+                                data-toggle="modal" data-modal-show="one" data-target="#myModal">here</a></p>
+                        <p>Register an admin <a href="#" id="login2" class="btn btn-danger modal-open-links"
+                                data-toggle="modal" data-modal-show="two" data-target="#myModal">here</a></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <!--Login script for nav-->
+    <script>
+        // Get the modal
+        var modal = document.getElementById("loginModal");
+        // Get the button that opens the modal
+        var btn = document.getElementById("login3");
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+        // When the user clicks the button, open the modal
+        btn.onclick = function () {
+            modal.style.display = "block";
+        };
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        };
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
+    </script>
+
+
+    <script>
+        $(".modal-open-links").on("click", function (e) {
+            //Set display:none for all first
+            $(".hide_first").css("display", "none");
+            content_to_show = $(this).attr("data-modal-show");
+            //Show the one we clicked
+            $("#" + content_to_show).css("display", "block");
+        });
+    </script>
+
+    <div id="adminContent">
+
+        <div id="mapContainer">
+            <p>No queries for hubs as of yet.</p>
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            $('#registerForm').on('submit', function (e) {
+                $.ajax({
+                    type: 'post',
+                    url: 'http://www.matthewfrankland.co.uk/pedalPay/adminFunctions/adminRegister.php',
+                    data: $('#registerForm').serialize(),
+                    success: function (response) {
+                        var message = jQuery.parseJSON(response)
+                        alert(message.message);
+                    }, error: function (message, error) {
+                        //if fails   
+                        alert('The request failed');
+                    }
+                });
+                e.preventDefault();
+            });
+        });
+    </script>
+    <script>
+        var map;
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('mapBox'), {
+                center: { lat: 55.952, lng: -3.19 },
+                zoom: 12
+            });
+        }
+        function loadmarkers(bikeLat, bikeLng, bid) {
+            var marker = new google.maps.Marker({
+                position: { lat: parseFloat(bikeLat), lng: parseFloat(bikeLng) },
+                map: map,
+                title: bid,
+                con: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=' + bid + '|FF776B|000000',
+                shadow: 'https://chart.googleapis.com/chart?chst=d_map_pin_shadow'
+            })
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAH3FQG8YcgP3NbuRN3EATXq1NXzQ7m7j8&callback=initMap"
+        async defer></script>
+
+    <script>
+        $(function () {
+            $('#updateBikes').on('submit', function (e) {
+                $.ajax({
+                    type: 'post',
+                    url: 'http://www.matthewfrankland.co.uk/pedalPay/adminFunctions/bikeUpdates.php',
+                    data: $('#updateBikes').serialize(),
+                    success: function (response) {
+                        var jsonData = JSON.parse(response);
+                        $("#bikeLocationDiv").empty();
+                        var j = 0;
+                        var counter = jsonData.message;
+                        loadmarkers(counter[1].lat, counter[1].lng, counter[1].bid);
+                    }
+                });
+                e.preventDefault();
+            });
+        });
+    </script>
+
+    <script>
+        $(function () {
+            $('#userBookingsForm').on('submit', function (e) {
+                $.ajax({
+                    type: 'post',
+                    url: 'http://www.matthewfrankland.co.uk/pedalPay/adminFunctions/allUserBookings.php',
+                    data: $('#userBookingsForm').serialize(),
+                    success: function (response) {
+                        var jsonData = JSON.parse(response);
+                        $("#userBookingsDiv").empty();
+                        var j = 0;
+                        for (var i = 0; i < jsonData.message.length; i++) {
+                            var counter = jsonData.message[i];
+                            var userIDValue = document.getElementById("userID").value;
+
+                            if (userIDValue == counter.pid) {
+                                if (j == 0) {
+                                    $("#userBookingsDiv").append("<p>The following are the booking details for user " + userIDValue + ":</p>");
+                                }
+                                ++j;
+                                $("#userBookingsDiv").append("<p>" + j + ".Booking for " + counter.bookstart + " and returned by " + counter.bookend + "</p>");
+                            }
+                        }
+                        if (j == 0) {
+                            $("#userBookingsDiv").append("<p>There are no details for this user!</p>");
+                        }
+                    }
+                });
+                e.preventDefault();
+            });
+        });
+    </script>
+
+</body>
+
+</html>
